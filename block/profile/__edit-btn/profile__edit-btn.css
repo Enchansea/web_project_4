@@ -15,6 +15,10 @@
   opacity: 0.6;
 }
 
+.profile__edit-btn:focus {
+  outline: none;
+}
+
 @media screen and (max-width: 425px) {
   .profile__edit-btn {
     align-self: center;

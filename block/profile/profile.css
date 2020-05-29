@@ -7,7 +7,7 @@
 
 .profile {
   display: grid;
-  grid-template-columns: 140px auto 1fr;
+  grid-template-columns: 170px auto 1fr;
   gap: 24px;
   align-items: center;
   margin: 36px auto 0;

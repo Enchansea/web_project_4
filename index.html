@@ -17,9 +17,9 @@
       <section class="profile">
         <img src="images/jacquesCousteau.jpg" alt="Portrait of Jacques Cousteau" class="profile__img">
         <div class="profile__info">
-          <p class="profile__name">Jacques Cousteau</p>
-          <p class="profile__about">Explorer</p>
-          <button class="profile__edit-btn"></button>
+          <p class="profile__name profile__name_type_input">Jacques Cousteau</p>
+          <p class="profile__about profile__about_type_input">Explorer</p>
+          <button type="button" class="profile__edit-btn"></button>
         </div>
         <button class="profile__add-btn"></button>
       </section>
@@ -63,8 +63,19 @@
         <p class="footer__copyright">&copy; 2020 Around The U.S.</p>
       </footer>
 
-  </div>
+      <section class="modal">
+        <div class="modal__content">
+          <form action="#" class="modal__form">
+            <h3 class="modal__title">Edit Profile</h3>
+            <button class="modal__button"></button>
+            <input type="text" name="name" class="modal__input modal__input_type_name" value="Jacques Cousteau">
+            <input type="text" name="about" class="modal__input modal__input_type_about" value="Explorer">
+            <button type="submit" class="modal__submit">Save</button>
+          </form>
 
-  <script></script>
+        </div>
+      </section>
+  </div>
+  <script src="index.js"></script>
 </body>
 </html>
