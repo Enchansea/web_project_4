@@ -2,15 +2,18 @@
 
 ### Overview
 
-* Figma
-* Images
+* Intro
+* Plans
+* Website
 
-**Figma**
+**Intro**
 
-* [Link to the project in Figma](https://www.figma.com/file/mUgu8OSHWE0M6p6vfwmdu9/Sprint-4-Around-The-U.S.-desktop-mobile?node-id=0%3A1)
+This is my fourth website project. Inside are elements of HTML, CSS and JavaScript. The project is an interactive website about places around the world. In this project I explored grid layout to display pictures and worked on pop up forms to change the content of the website. I also used @media inquiries to make the website viewable on different screen sizes. Namely: 1200, 768, and 425.
 
-**Images**
+**Plans**
 
-The way you'll do this at work is by exporting images directly from Figma — we recommend doing that to practice more. Don't forget to optimize them [here](https://tinypng.com/), so your project loads faster. 
+In the future I plan on making the "like" hearts interactive with JavaScript. I also want in include more content in the page. Maybe even make the pictures interactive so they can be changed by the user.
 
-Have fun with JavaScript!
+**Website**
+
+* [Link to my project](https://enchansea.github.io/web_project_4/)
