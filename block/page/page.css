@@ -1,3 +1,5 @@
+@import url('__content/page__content.css');
+
 .page {
   font-family: 'Inter', 'Arial', sans-serif;
   -moz-osx-font-smoothing: grayscale;
