@@ -32,9 +32,3 @@ form.addEventListener("submit", (e) => {
   toggleModal();
 })
 
-//.profile__edit-btn
-//.modal_visible
-//modal__input_type_name
-//modal__input_type_about
-//profile__name_type_input
-//profile__about_type_input

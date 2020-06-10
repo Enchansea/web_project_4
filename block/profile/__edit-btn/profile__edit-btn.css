@@ -5,6 +5,7 @@
   background-repeat: no-repeat;
   text-decoration: none;
   box-sizing: border-box;
+  align-self: center;
   cursor: pointer;
   border: 1px solid #ffffff;
   padding: 0;
@@ -21,7 +22,6 @@
 
 @media screen and (max-width: 425px) {
   .profile__edit-btn {
-    align-self: center;
     background-size: 18px;
     width: 18px;
     height: 18px;

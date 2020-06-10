@@ -1,4 +1,7 @@
 .element__img {
-  max-width: 282px;
-  position: relative;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 282px;
+  height: 282px;
 }
