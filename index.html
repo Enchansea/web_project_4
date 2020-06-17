@@ -27,56 +27,63 @@
 
       <section class="elements">
         <ul class="element">
-          <li class="element__group">
-            <div class="element__img" style="background-image: url('./images/yosemiteValley.jpg');" ></div>
-            <h2 class="element__title">Yosemite Valley</h2>
-            <button class="element__like-btn"></button>
-          </li>
-          <li class="element__group">
-            <div class="element__img" style="background-image: url('./images/lakeLouise.jpg');"></div>
-            <h2 class="element__title">Lake Louise</h2>
-            <button class="element__like-btn"></button>
-          </li>
-          <li class="element__group">
-            <div class="element__img" style="background-image: url('./images/baldMountains.jpg');"></div>
-            <h2 class="element__title">Bald Mountains</h2>
-            <button class="element__like-btn"></button>
-          </li>
-          <li class="element__group">
-            <div class="element__img" style="background-image: url('./images/latemar.jpg');"></div>
-            <h2 class="element__title">Latemar</h2>
-            <button class="element__like-btn"></button>
-          </li>
-          <li class="element__group">
-            <div class="element__img" style="background-image: url('./images/vanoisNationalPark.jpg');"></div>
-            <h2 class="element__title">Vanoise Massif</h2>
-            <button class="element__like-btn"></button>
-          </li>
-          <li class="element__group">
-            <div class="element__img" style="background-image: url('./images/lagoDiBraies.jpg');"></div>
-            <h2 class="element__title">Lago di Braies</h2>
-            <button class="element__like-btn"></button>
-          </li>
         </ul>
       </section>
       </main>
+
       <footer class="footer">
         <p class="footer__copyright">&copy; 2020 Around The U.S.</p>
       </footer>
 
-      <div class="modal">
-        <div class="modal__content">
-          <button class="modal__button"></button>
+      <!--edit profile section-->
+      <div class="modal modal_type_edit-profile">
+        <div class="modal__content modal__content_profile">
+          <button type="button" class="modal__button"></button>
           <form action="#" class="modal__form">
             <h3 class="modal__title">Edit Profile</h3>
             <input type="text" name="name" class="modal__input modal__input_type_name" value="Jacques Cousteau">
             <input type="text" name="about" class="modal__input modal__input_type_about" value="Explorer">
             <button type="submit" class="modal__submit">Save</button>
           </form>
+        </div>
+      </div>
 
+      <!--edit elements section-->
+      <div class="modal modal_type_add-card">
+        <div class="modal__content modal__content_card">
+          <button class="modal__button"></button>
+          <form action="#" class="modal__form">
+            <h3 class="modal__title">New Place</h3>
+            <input type="text" name="name" class="modal__input modal__input_type_card-name" placeholder="title">
+            <input type="url" name="url" class="modal__input modal__input_type_url" placeholder="image link">
+            <button type="submit" class="modal__submit">Save</button>
+          </form>
+        </div>
+      </div>
+
+      <!--picture popup section-->
+      <div class="modal modal_type_image">
+        <div class="modal__content modal__content_theme_transparent">
+          <button class="modal__button"></button>
+          <figure>
+            <img src="" alt="">
+            <figcaption></figcaption>
+          </figure>
         </div>
       </div>
   </div>
+
+  <!--card template-->
+  <template class="card-template">
+    <li class="element__group">
+      <div class="element__img"></div>
+      <button class="element__remove-btn"></button>
+      <h2 class="element__title"></h2>
+      <button class="element__like-btn"></button>
+    </li>
+  </template>
+
   <script src="index.js"></script>
 </body>
 </html>
+

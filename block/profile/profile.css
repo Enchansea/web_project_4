@@ -10,7 +10,7 @@
   grid-template-columns: 170px auto 1fr;
   gap: 24px;
   align-items: center;
-  margin: 36px auto 0;
+  margin: 36px auto 51px;
 }
 
 @media screen and (max-width: 768px) {
