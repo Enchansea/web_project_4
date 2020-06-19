@@ -17,3 +17,6 @@ In the future I plan on making the "like" hearts interactive with JavaScript. I 
 **Website**
 
 * [Link to my project](https://enchansea.github.io/web_project_4/)
+
+**Version 1.1**
+In this iteration I have made some of the planned changes I included in my Plans section. I changed my html to pull a template with JavaScript to create cards of each place. Also the forms have become more interactive. You can now open, close, or submit these pop up forms/pictures as needed. The forms are interactable and can change the website according to the input put into each field. I also implamented the interactive "like" hearts.
