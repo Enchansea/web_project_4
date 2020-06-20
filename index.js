@@ -9,8 +9,6 @@ const imageModalWindow = document.querySelector(".popup__picture-section");
 const editCloseButton = editProfilePopup.querySelector(".popup__close-button");
 const addCardCloseButton = addCardModalWindow.querySelector(".popup__close-button");
 const imageCloseButton = imageModalWindow.querySelector(".popup__close-button");
-//save button
-const popupSubmitButton = document.querySelector(".popup__submit-button");
 //profile form data
 const inputName = document.querySelector(".popup__input_profile-name");
 const inputAbout = document.querySelector(".popup__input_profile-about");
@@ -72,8 +70,6 @@ function toggleModal(modal) {
   modal.classList.toggle("popup_visible");
 }
 
-//event listener to create function for submit
-editForm.addEventListener("submit", formSubmitHandler);
 
 //edit profile form handler
 function formSubmitHandler(e) {
@@ -82,6 +78,10 @@ function formSubmitHandler(e) {
   profileAbout.textContent = inputAbout.value;
   toggleModal(editProfilePopup);
 }
+
+//event listener to submit profile form
+editForm.addEventListener("submit", formSubmitHandler);
+
 
 //pull data from creatCard function and applying to displayImage function
 function displayImage(data) {
@@ -125,8 +125,6 @@ const createCard = (data) => {
 
   cardTitle.textContent = data.name;
   cardImage.style.backgroundImage = `url(${data.link})`;
-  cardImage.style.backgroundSize = "cover";
-  cardImage.style.minHeight = "282px";
 
   cardLikeButton.addEventListener('click', () => {
     //change heart color when clicked
@@ -164,7 +162,7 @@ addCardModalWindow.querySelector(".popup__form").addEventListener('submit', (e) 
     name: newCardName.value,
     link: newCardUrl.value
   }
-  list.prepend(createCard(newCard));
+  renderCard(newCard);
 
   toggleModal(addCardModalWindow);
 })
