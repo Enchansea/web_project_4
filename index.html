@@ -39,13 +39,13 @@
       <div class="popup popup__edit-profile">
         <div class="popup__content popup__content_profile">
           <button type="button" class="popup__close-button"></button>
-          <form action="#" class="popup__form popup__form_profile">
+          <form action="#" class="popup__form popup__form_profile" novalidate>
             <h3 class="popup__title">Edit Profile</h3>
             <input id="profile-name" type="text" name="name" class="popup__input popup__input_profile-name" placeholder="Name" required maxlength="40" minlength="2">
-            <span id="profile-name-error" class="popup__error"></span>
+            <span id="profile-name-error" class="popup__error popup__error_visible"></span>
 
             <input id="profile-text" type="text" name="about" class="popup__input popup__input_profile-about" placeholder="Profession" required maxlength="200" minlength="2">
-            <span id="profile-text-error" class="popup__error"></span>
+            <span id="profile-text-error" class="popup__error popup__error_visible"></span>
 
             <button type="submit" class="popup__submit-button popup__profile-save">Save</button>
           </form>
@@ -56,13 +56,13 @@
       <div class="popup popup__add-card">
         <div class="popup__content popup__content_card">
           <button class="popup__close-button"></button>
-          <form action="#" class="popup__form popup__form_card">
+          <form action="#" class="popup__form popup__form_card" novalidate>
             <h3 class="popup__title">New Place</h3>
             <input id="popup-title" type="text" name="name" class="popup__input popup__input_card-name" placeholder="Title" required maxlength="30" minlength="1">
-            <span id="popup-title-error" class="popup__error"></span>
+            <span id="popup-title-error" class="popup__error popup__error_visible"></span>
 
             <input id="popup-url" type="url" name="url" class="popup__input popup__input_card-url" placeholder="Image link" required>
-            <span id="popup-url-error" class="popup__error"></span>
+            <span id="popup-url-error" class="popup__error popup__error_visible"></span>
 
             <button type="submit" class="popup__button popup__submit-button popup__card-save">Create</button>
           </form>

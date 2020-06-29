@@ -3,10 +3,13 @@
 @import url('__title/popup__title.css');
 @import url('__close-button/popup__close-button.css');
 @import url('__input/popup__input.css');
+@import url('__input/_type_error/popup__input_type_error.css');
 @import url('__submit/popup__submit-button.css');
 @import url('__content/theme_transparent/popup__content_theme_transparent.css');
 @import url('__image/popup__image.css');
 @import url('__caption/popup__caption.css');
+@import url('__error/popup__error.css');
+
 
 .popup {
   position: fixed;

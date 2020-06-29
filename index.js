@@ -39,9 +39,9 @@ const cardTemplate = document.querySelector(".card-template").content.querySelec
 const imagePopup = document.querySelector(".popup__image");
 const imageCaption = document.querySelector(".popup__caption");
 
-//varibles for popup
-const popups = document.querySelectorAll('.popup');
-const popupOverlay = Array.from(popups);
+//varibles for popup and creating an array
+//const popups = document.querySelectorAll(".popup");
+//const popupOverlay = Array.from(popups);
 
 //card array
 const initialCards = [
@@ -122,34 +122,23 @@ addButton.addEventListener("click", () => {
 //closing popup array with overlay
 function formCloseOnClick(e) {
   if(e.target === e.target.closest(".popup")) {
-  toggleModal(e.target.closest(".popup"));
+    toggleModal(document.querySelector(".popup_visible"));
   }
 }
 
-popupOverlay.forEach((overlay) => {
-  overlay.addEventListener("click", formCloseOnClick);
-})
-
-const openPopupWindow = (popupWindow) => {
-  popupWindow.classList.add("popup__visible");
-  document.addEventListener("keyup", handleEscUp);
-}
-
-const closePopupWindow = (popupWindow) => {
-  popupWindow.classList.remove("popup__visible");
-  document.removeEventListener("keyup", handleEscUp);
-}
-
-function handleEscUp(e) {
-  const formsList = Array.from(document.querySelectorAll(".popup"));
-  if (e.which == 27) {
-    formsList.forEach((modal) => {
-      if (modal.classList.contains("popup__visible")) {
-        closePopupWindow(modal);
-      }
-    });
+//Esc closing popups
+function escKeyUp(e) {
+  const escKeyNum = 27;
+  const popup = document.querySelector(".popup_visible");
+  if (e.keyCode === escKeyNum && popup != null) {
+    toggleModal(popup);
   }
 }
+
+//global click and esc listers
+document.addEventListener("click", formCloseOnClick);
+document.addEventListener("keyup", escKeyUp);
+
 
 //create card from template in html
 const createCard = (data) => {
