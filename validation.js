@@ -1,4 +1,4 @@
-function showErrorMessage(input, form, {errorClass, inputErrorClass}) {
+function showErrorMessage(input, form, {errorClass, ...rest}) {
   const error = document.querySelector('#' + input.id + '-error');
   error.textContent = input.validationMessage;
 
@@ -6,7 +6,7 @@ function showErrorMessage(input, form, {errorClass, inputErrorClass}) {
   input.classList.add(inputErrorClass);
 }
 
-function hideErrorMessage(input, form, {errorClass, inputErrorClass}) {
+function hideErrorMessage(input, form, {errorClass, ...rest}) {
   const error = document.querySelector('#' + input.id + '-error');
   error.textContent = '';
 
@@ -22,16 +22,18 @@ function checkInputValidity(input, form, rest) {
   }
 }
 
-function toggleButtonState(inputs, button, {inactiveButtonClass}) {
+function toggleButtonState(inputs, button, {inactiveButtonClass, ...rest}) {
   const isValid = inputs.every((input) => input.validity.valid);
   if(isValid) {
     button.classList.remove(inactiveButtonClass);
+    button.setAttribute("disabled", false);
   } else {
     button.classList.remove(inactiveButtonClass);
+    button.setAttribute("disabled", true);
   }
 }
 
-function enableValidation({formSelector, inputSelector, submitButtonSelector}) {
+function enableValidation({formSelector, inputSelector, submitButtonSelector, ...rest}) {
   const forms = [...document.querySelectorAll(formSelector)];
 
   forms.forEach((form) => {
@@ -40,7 +42,7 @@ function enableValidation({formSelector, inputSelector, submitButtonSelector}) {
     });
 
     const inputs = [...form.querySelectorAll(inputSelector)];
-    const button = [...form.querySelector(submitButtonSelector)];
+    const button = form.querySelector(submitButtonSelector);
 
     inputs.forEach((input) => {
       input.addEventListener("input", () => {
@@ -55,7 +57,7 @@ enableValidation({
   formSelector: ".popup__form",
   inputSelector: ".popup__input",
   submitButtonSelector: ".popup__button",
-  inactiveButtonClass: "popup__button_disabled",
+  inactiveButtonClass: "popup__submit-button_disabled",
   inputErrorClass: "popup__input_type_error",
   errorClass: "popup__error_visible"
 });
