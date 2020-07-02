@@ -1,13 +1,13 @@
-function showErrorMessage(input, form, {errorClass, ...rest}) {
-  const error = document.querySelector('#' + input.id + '-error');
+function showErrorMessage(input, form, {errorClass, inputErrorClass}) {
+  const error = document.querySelector(`#${input.id}-error`);
   error.textContent = input.validationMessage;
 
   error.classList.add(errorClass);
   input.classList.add(inputErrorClass);
 }
 
-function hideErrorMessage(input, form, {errorClass, ...rest}) {
-  const error = document.querySelector('#' + input.id + '-error');
+function hideErrorMessage(input, form, {errorClass, inputErrorClass}) {
+  const error = document.querySelector(`#${input.id}-error`);
   error.textContent = '';
 
   error.classList.remove(errorClass);
@@ -24,12 +24,12 @@ function checkInputValidity(input, form, rest) {
 
 function toggleButtonState(inputs, button, {inactiveButtonClass, ...rest}) {
   const isValid = inputs.every((input) => input.validity.valid);
-  if(isValid) {
-    button.classList.remove(inactiveButtonClass);
-    button.setAttribute("disabled", false);
+  if(!isValid) {
+    button.classList.add(inactiveButtonClass);
+    button.disabled=true;
   } else {
     button.classList.remove(inactiveButtonClass);
-    button.setAttribute("disabled", true);
+    button.disabled=false;
   }
 }
 
