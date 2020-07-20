@@ -1,10 +1,3 @@
-// function displayImage(data) {
-//   imagePopup.src = data.link;
-//   imagePopup.alt = data.name;
-//   imageCaption.textContent = data.name;
-//   toggleModal(imagePopupWindow);
-// }
-
 //variables for popup image
 const imagePopup = document.querySelector(".popup__image");
 const imageCaption = document.querySelector(".popup__caption");
@@ -21,16 +14,6 @@ function toggleModal(modal) {
   }
 }
 
-
-
-//closing popup array with overlay
-function formCloseOnClick(e) {
-  if(e.target === e.target.closest(".popup")) {
-    toggleModal(document.querySelector(".popup_visible"));
-  }
-}
-document.addEventListener("click", formCloseOnClick);
-
 //Esc closing popups
 function escKeyUp(e) {
   const popup = document.querySelector(".popup_visible");
@@ -39,6 +22,13 @@ function escKeyUp(e) {
   }
 }
 
+//closing popup array with overlay
+function formCloseOnClick(e) {
+  if(e.target === e.target.closest(".popup")) {
+    toggleModal(document.querySelector(".popup_visible"));
+  }
+}
+document.addEventListener("click", formCloseOnClick);
 
 class Card {
   constructor(data, cardTemplateSelector) {
@@ -84,7 +74,6 @@ class Card {
     toggleModal(imagePopupWindow);
   }
 
-
   generateCard = () => {
     const element = this._getCardTemplate();
 
@@ -96,4 +85,5 @@ class Card {
     return this._card;
   }
 }
+
 export default Card;

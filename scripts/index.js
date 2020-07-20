@@ -10,26 +10,21 @@ const defultConfig = {
 }
 
 //popup elements
-
 const editProfilePopup = document.querySelector(".popup__edit-profile");
 const addCardPopupWindow = document.querySelector(".popup__add-card");
-
 const addCardForm = editProfilePopup.querySelector(".popup__form");
 const editProfileForm = addCardPopupWindow.querySelector(".popup__form");
+const imagePopupWindow = document.querySelector(".popup__picture-section");
 
+//new FormValidator
 const editProfileValidation = new FormValidator(defultConfig, editProfileForm);
 const addCardValidation = new FormValidator(defultConfig, addCardForm);
-
 editProfileValidation.enableValidation();
 addCardValidation.enableValidation();
 
 //profile edit and add buttons
 const profileEditButton = document.querySelector(".profile__edit-button");
 const addButton = document.querySelector('.profile__add-button');
-
-
-
-const imagePopupWindow = document.querySelector(".popup__picture-section");
 
 //close buttons
 const editCloseButton = editProfilePopup.querySelector(".popup__close-button");
@@ -57,11 +52,6 @@ const editForm = document.querySelector(".popup__form");
 
 //card template inside unorderedlist selector
 const list = document.querySelector(".card");
-// const cardTemplate = document.querySelector(".card-template").content.querySelector(".card__group");
-
-//variables for popup image
-const imagePopup = document.querySelector(".popup__image");
-const imageCaption = document.querySelector(".popup__caption");
 
 //card array
 const initialCards = [
@@ -90,18 +80,6 @@ const initialCards = [
       link: "https://code.s3.yandex.net/web-code/lago.jpg"
   }
 ];
-
-
-//adds class '.popup_visible' to html
-function toggleModal(modal) {
-  modal.classList.toggle("popup_visible");
-  //modified later for use in esc key 6th project
-  if (modal.classList.contains("popup_visible")) {
-    document.addEventListener("keyup", escKeyUp);
-  } else {
-    document.removeEventListener("keyup", escKeyUp);
-  }
-}
 
 //edit profile form handler
 function formSubmitHandler(e) {
@@ -135,14 +113,16 @@ addButton.addEventListener("click", () => {
   toggleModal(addCardPopupWindow);
 })
 
-
-//closing popup array with overlay
-function formCloseOnClick(e) {
-  if(e.target === e.target.closest(".popup")) {
-    toggleModal(document.querySelector(".popup_visible"));
+//adds class '.popup_visible' to html
+function toggleModal(modal) {
+  modal.classList.toggle("popup_visible");
+  //modified later for use in esc key 6th project
+  if (modal.classList.contains("popup_visible")) {
+    document.addEventListener("keyup", escKeyUp);
+  } else {
+    document.removeEventListener("keyup", escKeyUp);
   }
 }
-document.addEventListener("click", formCloseOnClick);
 
 //Esc closing popups
 function escKeyUp(e) {
@@ -153,7 +133,6 @@ function escKeyUp(e) {
 }
 
 //render card in the begining of array
-
 const renderCard = (data) => {
   //const card = new Card(data, cardTemplate);
   const cardTemplateSelector = ".card-template";
