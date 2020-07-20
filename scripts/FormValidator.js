@@ -66,13 +66,3 @@ class FormValidator {
 
 export default FormValidator;
 
-// inputSelector: ".popup__input",
-//   submitButtonSelector: ".popup__button",
-//   inactiveButtonClass: "popup__submit-button_disabled",
-//   inputErrorClass: "popup__input_type_error",
-//   errorClass: "popup__error_visible"
-
-// new FormValidator (setting, formElement) {
-
-// }
-

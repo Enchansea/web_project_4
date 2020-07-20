@@ -23,6 +23,13 @@ transition: opacity 0.5s;
   outline: none;
 }
 
+@media screen and (max-width: 575px) {
+  .profile__add-button {
+    justify-self: center;
+    width: 100%;
+  }
+}
+
 @media screen and (max-width: 425px) {
   .profile__add-button {
     justify-self: center;

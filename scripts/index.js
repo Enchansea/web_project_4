@@ -54,6 +54,7 @@ const editForm = document.querySelector(".popup__form");
 
 //card template inside unorderedlist selector
 const list = document.querySelector(".card");
+const cardTemplateSelector = ".card-template";
 
 //card array
 const initialCards = [
@@ -107,11 +108,13 @@ imageCloseButton.addEventListener('click', () => {
 
 //opening profile and card forms via buttons
 profileEditButton.addEventListener('click', () => {
-  popupProfileForm.reset();
+  //popupProfileForm.reset();
   toggleModal(editProfilePopup);
 })
+/* Aygul Malikova - I understand that we need to use value for the name Jacques Cousteau in our project but I had changed it to placeholder due to preference. I will eventually change it back to my original design. In the future you may consider that some people might want this design as well. */
+
 addButton.addEventListener("click", () => {
-  popupCardForm.reset();
+  //popupCardForm.reset();
   toggleModal(addCardPopupWindow);
 })
 
@@ -119,8 +122,6 @@ addButton.addEventListener("click", () => {
 
 //render card in the begining of array
 const renderCard = (data) => {
-  //const card = new Card(data, cardTemplate);
-  const cardTemplateSelector = ".card-template";
   const card = new Card(data, cardTemplateSelector);
   list.prepend(card.generateCard());
 }
@@ -131,7 +132,7 @@ initialCards.forEach((data) => {
 })
 
 //add new card from add card button
-addCardPopupWindow.querySelector(".popup__form").addEventListener('submit', (e) => {
+editProfileForm.addEventListener('submit', (e) => {
   e.preventDefault();
   const newCard =
   {
@@ -139,6 +140,7 @@ addCardPopupWindow.querySelector(".popup__form").addEventListener('submit', (e) 
     link: newCardUrl.value
   }
   renderCard(newCard);
-
   toggleModal(addCardPopupWindow);
-})
+});
+
+

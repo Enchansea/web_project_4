@@ -8,6 +8,13 @@
   margin: 0;
 }
 
+@media screen and (max-width: 575px) {
+  .profile__name {
+    font-size: 32px;
+    text-align: center;
+  }
+}
+
 @media screen and (max-width: 425px) {
   .profile__name {
     font-size: 22px;
