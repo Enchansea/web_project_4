@@ -1,4 +1,4 @@
-import {toggleModal} from "./Utils.js"
+import {toggleModal} from "./utils.js"
 import FormValidator from "./FormValidator.js";
 import Card from "./Card.js";
 
@@ -111,7 +111,6 @@ profileEditButton.addEventListener('click', () => {
   //popupProfileForm.reset();
   toggleModal(editProfilePopup);
 })
-/* Aygul Malikova - I understand that we need to use value for the name Jacques Cousteau in our project but I had changed it to placeholder due to preference. I will eventually change it back to my original design. In the future you may consider that some people might want this design as well. */
 
 addButton.addEventListener("click", () => {
   //popupCardForm.reset();

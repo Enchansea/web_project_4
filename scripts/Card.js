@@ -1,4 +1,4 @@
-import {toggleModal} from "./Utils.js"
+import {toggleModal} from "./utils.js"
 
 //variables for popup image
 const imagePopup = document.querySelector(".popup__image");
