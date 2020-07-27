@@ -4,8 +4,9 @@
   "description": "* Intro\r * Plans\r * Website",
   "main": "index.js",
   "scripts": {
-    "build": "webpack"
-},
+    "build": "rm -rf dist && webpack",
+    "dev": "webpack-dev-server --open --watch"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Enchansea/web_project_4.git"
@@ -21,6 +22,7 @@
   },
   "devDependencies": {
     "webpack": "^4.44.0",
-    "webpack-cli": "^3.3.12"
+    "webpack-cli": "^3.3.12",
+    "webpack-dev-server": "^3.11.0"
   }
 }

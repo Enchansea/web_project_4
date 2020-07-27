@@ -57,7 +57,7 @@ class Card {
     toggleModal(imagePopupWindow);
   }
 
-  generateCard = () => {
+  generateCard() {
     const element = this._getCardTemplate();
 
     this._card = element;
