@@ -1,8 +1,7 @@
-console.log("Hello, World!");
-
 import {toggleModal} from "../scripts/utils.js"
 import FormValidator from "../scripts/FormValidator.js";
 import Card from "../scripts/Card.js";
+import "../pages/index.css";
 
 const defultConfig = {
   inputSelector: ".popup__input",
