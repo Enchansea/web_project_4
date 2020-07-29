@@ -1,7 +1,10 @@
 import {toggleModal} from "../scripts/utils.js"
 import FormValidator from "../scripts/FormValidator.js";
 import Card from "../scripts/Card.js";
+import Popup from "../scripts/Popup.js";
 import "../pages/index.css";
+
+const editPopup = new Popup(editProfilePopup);
 
 const defultConfig = {
   inputSelector: ".popup__input",

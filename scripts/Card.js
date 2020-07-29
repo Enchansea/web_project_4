@@ -14,7 +14,7 @@ function formCloseOnClick(e) {
 document.addEventListener("click", formCloseOnClick);
 
 class Card {
-  constructor(data, cardTemplateSelector) {
+  constructor(data, cardTemplateSelector, handleCardClick) {
 
     this._link = data.link;
     this._name = data.name;
@@ -40,6 +40,7 @@ class Card {
     cardLikeButton.addEventListener('click', this._handleLikeIcon);
     cardRemoveButton.addEventListener('click', this._handleDeleteCard);
     cardImage.addEventListener('click', () => this._handlePreviewPicture());
+    
   }
 
   _handleLikeIcon(e) {
@@ -48,6 +49,10 @@ class Card {
 
   _handleDeleteCard(e) {
     e.target.closest(".card__group").remove();
+  }
+
+  _handleCardClick() {
+
   }
 
   _handlePreviewPicture() {
