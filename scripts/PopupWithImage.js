@@ -1,12 +1,20 @@
 class PopupWithImage extends Popup {
-    constructor(PopupSelector) {
-            super(PopupSelector);
+  constructor(PopupSelector) {
+      super(PopupSelector);
     }
 
-    open({link, caption}) {
-        this._popupElement.querySelector(".popup__image").src = link;
-        this._popupElement.querySelector(".popup__caption").textContent = caption;
+  open({link, name}) {
+    this._popupElement.querySelector(".popup__image").src = link;
+    this._popupElement.querySelector(".popup__caption").textContent = name;
+
+    super.open();
     }
 }
 
-const modalWithImage = new PopupWithImage()
+const modalWithImage = new PopupWithImage("....");
+
+initialCard.forEach..(data) => {
+  new Card(data, ".", function() {
+    modalWithImage.open()
+  })
+}

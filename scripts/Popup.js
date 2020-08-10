@@ -31,6 +31,4 @@ class Popup {
     }
 }
 
-new Popup(".popup");
-
 export default Popup;
