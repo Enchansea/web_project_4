@@ -1,11 +1,18 @@
 import {toggleModal} from "../scripts/utils.js"
 import FormValidator from "../scripts/FormValidator.js";
+import Popup from "../scripts/Popup.js";
 import Card from "../scripts/Card.js";
 import "../pages/index.css";
+import PopupWithImage from "../scripts/PopupWithImage.js";
+import PopupWithForm from "../scripts/PopupWithForm.js";
+import
 
 //calling classes
 const editPopup = new Popup(editProfilePopup);
 const modalWithImage = new PopupWithImage(".popup__content");
+const formPopup = new PopupWithForm({
+  formSelector: "."
+})
 
 
 const defultConfig = {

@@ -1,9 +1,17 @@
-const { bind } = require("file-loader");
-
 class Popup {
     constructor(popupSelector) {
-        this._popupElement = document.querySelector(popupSelector);
+        this._popupElement = popupSelector;
         this._handleEscClose = this._handleEscClose.bind(this);
+    }
+
+    _getTemplate() {
+      const popupSelector = document
+      .querySelector(this._popupElement)
+      .content
+      .querySelector(".card-template")
+      .cloneNode(true);
+
+      return popupSelector;
     }
 
     open() {
@@ -24,7 +32,7 @@ class Popup {
         }
     }
 
-    _setEventListeners() {
+    setEventListeners() {
         this._popupElement.querySelector(".popup__close-button").addEventListener("click", (e) => {
             this.close();
         })
