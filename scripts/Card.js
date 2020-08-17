@@ -14,11 +14,11 @@ function formCloseOnClick(e) {
 document.addEventListener("click", formCloseOnClick);
 
 class Card {
-  constructor(data, cardTemplateSelector, handlePreviewPicture) {
+  constructor({data, handleCardClick}, cardTemplateSelector) {
 
     this._link = data.link;
     this._name = data.name;
-    this._handlePreviewPicture = handlePreviewPicture;
+    this._handleCardClick = handleCardClick;
     this._cardTemplateSelector = cardTemplateSelector;
   }
 
@@ -34,14 +34,17 @@ class Card {
   }
 
   _addEventListeners() {
-    const cardLikeButton = this._card.querySelector(".card__like-button");
-    const cardRemoveButton = this._card.querySelector(".card__remove-button");
-    const cardImage = this._card.querySelector(".card__image");
+    this._card.querySelector(".card__like-button")
+      .addEventListener("click", this._handleLikeIcon);
 
-    cardLikeButton.addEventListener('click', this._handleLikeIcon);
-    cardRemoveButton.addEventListener('click', this._handleDeleteCard);
-    cardImage.addEventListener('click', () => this._handlePreviewPicture());
+    this._card.querySelector(".card__remove-button")
+      .addEventListener("click", this._handleDeleteCard);
 
+    this._card.querySelector(".card__image")
+      .addEventListener("click", () => this._handlePreviewPicture());
+
+    this._card.querySelector(".card__image")
+      .addEventListener("click", () => this._handleCardClick(this.name, this.link));
   }
 
   _handleLikeIcon(e) {

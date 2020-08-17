@@ -2,7 +2,7 @@ class UserInfo {
   constructor({nameSelector, descriptionSelector}) {
     this._nameSelector = nameSelector;
     this._descriptionSelector = descriptionSelector;
-
+  }
     getUserInfo() {
       return {
         userName: this._nameSelector.textContent,
@@ -11,9 +11,10 @@ class UserInfo {
     }
 
     setUserInfo() {
-
+      this._nameSelector.textContent = userName;
+      this._descriptionSelector.textContent = userDescription;
     }
-  }
+
 }
 
 export default UserInfo;

@@ -1,6 +1,6 @@
 import Popup from "./Popup.js";
 
-export default class PopupWithImage extends Popup {
+class PopupWithImage extends Popup {
   constructor(popupSelector) {
       super(popupSelector);
     }
@@ -13,10 +13,11 @@ export default class PopupWithImage extends Popup {
     }
 }
 
-initalCard.forEach((data) => {
-  newCard(data, ".card-template", function() {
-    modalWithImage.open()
-  });
-})
+// initalCard.forEach((data) => {
+//   newCard(data, ".card-template", function() {
+//     modalWithImage.open()
+//   });
+// })
 
 
+export default PopupWithImage;

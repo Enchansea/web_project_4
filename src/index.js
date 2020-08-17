@@ -1,20 +1,37 @@
 import {toggleModal} from "../scripts/utils.js"
 import FormValidator from "../scripts/FormValidator.js";
-import Popup from "../scripts/Popup.js";
 import Card from "../scripts/Card.js";
 import "../pages/index.css";
 import PopupWithImage from "../scripts/PopupWithImage.js";
-import PopupWithForm from "../scripts/PopupWithForm.js";
-import
+//import PopupWithForm from "../scripts/PopupWithForm.js";
+//import UserInfo from "../scripts/UserInfo.js";
+//import Section from "../scripts/Section.js";
 
 //calling classes
-const editPopup = new Popup(editProfilePopup);
-const modalWithImage = new PopupWithImage(".popup__content");
-const formPopup = new PopupWithForm({
-  formSelector: "."
-})
+ //const editPopup = new Popup(editProfilePopup);
 
+const modalWithImage = new PopupWithImage(".popup__picture-section");
+modalWithImage.setEventListeners();
+new Card(
+  {data,
+   handleCardClick: () => {
+    modalWithImage.open({data});
+    }
+  },
+  cardTemplate
+)
 
+// initalCard.forEach((data) => {
+//   new Card(data, ".card-template", function() {
+//      modalWithImage.open()
+//    });
+// })
+//console.log(modalWithImage);
+//const formPopup = new PopupWithForm({
+//   formSelector: "."
+// })
+
+// obj defaultConfig array, used in FormValidator.js
 const defultConfig = {
   inputSelector: ".popup__input",
   submitButtonSelector: ".popup__button",
@@ -30,9 +47,10 @@ const addCardForm = editProfilePopup.querySelector(".popup__form");
 const editProfileForm = addCardPopupWindow.querySelector(".popup__form");
 const imagePopupWindow = document.querySelector(".popup__picture-section");
 
-//new FormValidator
+//new FormValidator for Profile and Add Card
 const editProfileValidation = new FormValidator(defultConfig, editProfileForm);
 const addCardValidation = new FormValidator(defultConfig, addCardForm);
+//calls function to validate profile and add card forms
 editProfileValidation.enableValidation();
 addCardValidation.enableValidation();
 
@@ -153,5 +171,4 @@ editProfileForm.addEventListener('submit', (e) => {
   renderCard(newCard);
   toggleModal(addCardPopupWindow);
 });
-
 

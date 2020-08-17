@@ -1,3 +1,4 @@
+//renders a list of elements on a page
 export default class Section {
   constructor({items, renderer}, cardTemplateSelector) {
     this._renderedItems = items;
