@@ -1,4 +1,7 @@
-import {toggleModal} from "../scripts/utils.js"
+import {
+  toggleModal,
+  initialCards,
+} from "../scripts/utils.js"
 import FormValidator from "../scripts/FormValidator.js";
 import Card from "../scripts/Card.js";
 import "../pages/index.css";
@@ -10,26 +13,6 @@ import PopupWithImage from "../scripts/PopupWithImage.js";
 //calling classes
  //const editPopup = new Popup(editProfilePopup);
 
-const modalWithImage = new PopupWithImage(".popup__picture-section");
-modalWithImage.setEventListeners();
-new Card(
-  {data,
-   handleCardClick: () => {
-    modalWithImage.open({data});
-    }
-  },
-  cardTemplate
-)
-
-// initalCard.forEach((data) => {
-//   new Card(data, ".card-template", function() {
-//      modalWithImage.open()
-//    });
-// })
-//console.log(modalWithImage);
-//const formPopup = new PopupWithForm({
-//   formSelector: "."
-// })
 
 // obj defaultConfig array, used in FormValidator.js
 const defultConfig = {
@@ -86,33 +69,37 @@ const editForm = document.querySelector(".popup__form");
 const list = document.querySelector(".card");
 const cardTemplateSelector = ".card-template";
 
-//card array
-const initialCards = [
-  {
-      name: "Yosemite Valley",
-      link: "https://code.s3.yandex.net/web-code/yosemite.jpg"
-  },
-  {
-      name: "Lake Louise",
-      link: "https://code.s3.yandex.net/web-code/lake-louise.jpg"
-  },
-  {
-      name: "Bald Mountains",
-      link: "https://code.s3.yandex.net/web-code/bald-mountains.jpg"
-  },
-  {
-      name: "Latemar",
-      link: "https://code.s3.yandex.net/web-code/latemar.jpg"
-  },
-  {
-      name: "Vanois National Park",
-      link: "https://code.s3.yandex.net/web-code/vanois.jpg"
-  },
-  {
-      name: "Lago di Braies",
-      link: "https://code.s3.yandex.net/web-code/lago.jpg"
-  }
-];
+
+const popupWithImage = new PopupWithImage(".popup__picture-section");
+popupWithImage.setEventListeners();
+// new Card(
+//   {data: initialCards,
+//    handleCardClick: () => {
+//     popupWithImage.open({data});
+//     }
+//   },
+//   cardTemplateSelector
+// )
+
+//render card in the begining of array
+const renderCard = (data) => {
+  const card = new Card(data, cardTemplateSelector);
+  list.prepend(card.generateCard());
+}
+
+//loop forEach card rendered
+initialCards.forEach((data) => {
+  renderCard(data);
+})
+
+// const popupWithForm = new PopupWithForm(".popup__add-card");
+// popupWithForm.setEventListeners();
+
+initialCards.forEach((data) => {
+  new Card(data, ".card-template", function() {
+     popupWithImage.open();
+   });
+})
 
 //edit profile form handler
 function formSubmitHandler(e) {
@@ -149,16 +136,7 @@ addButton.addEventListener("click", () => {
 
 
 
-//render card in the begining of array
-const renderCard = (data) => {
-  const card = new Card(data, cardTemplateSelector);
-  list.prepend(card.generateCard());
-}
 
-//loop forEach card rendered
-initialCards.forEach((data) => {
-  renderCard(data);
-})
 
 //add new card from add card button
 editProfileForm.addEventListener('submit', (e) => {

@@ -1,4 +1,7 @@
-import {toggleModal} from "./utils.js"
+import {
+  toggleModal,
+  initialCards,
+} from "./utils.js"
 
 //variables for popup image
 const imagePopup = document.querySelector(".popup__image");
@@ -14,7 +17,7 @@ function formCloseOnClick(e) {
 document.addEventListener("click", formCloseOnClick);
 
 class Card {
-  constructor({data, handleCardClick}, cardTemplateSelector) {
+  constructor({data}, cardTemplateSelector, handleCardClick) {
 
     this._link = data.link;
     this._name = data.name;
@@ -44,7 +47,7 @@ class Card {
       .addEventListener("click", () => this._handlePreviewPicture());
 
     this._card.querySelector(".card__image")
-      .addEventListener("click", () => this._handleCardClick(this.name, this.link));
+      .addEventListener("click", () => this._handleCardClick());
   }
 
   _handleLikeIcon(e) {
