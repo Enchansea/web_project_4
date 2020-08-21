@@ -1,9 +1,9 @@
 //renders a list of elements on a page
 export default class Section {
-  constructor({items, renderer}, cardTemplateSelector) {
+  constructor({items, renderer, containerSelector}) {
     this._renderedItems = items;
     this._renderer = renderer;
-    this._container = document.querySelector(cardTemplateSelector);
+    this._container = document.querySelector(containerSelector);
   }
 
   addItem(element) {

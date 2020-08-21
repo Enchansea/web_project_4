@@ -5,12 +5,12 @@ class Popup {
     }
 
     open() {
-        this._popupElement.classList.add(".popup_visible");
+        this._popupElement.classList.add("popup_visible");
         document.addEventListener("keyup", this._handleEscClose);
     }
 
     close() {
-        this._popupElement.classList.remove(".popup_visible");
+        this._popupElement.classList.remove("popup_visible");
         document.removeEventListener("keyup", this._handleEscClose);
 
 
@@ -24,7 +24,7 @@ class Popup {
 
     setEventListeners() {
         //console.log(this._popupElement.querySelector(".popup__close-button"));
-        this._popupElement.querySelector(".popup__close-button").addEventListener("click", (e) => {
+        this._popupElement.querySelector(".popup__close-button").addEventListener("click", function (e) {
             this.close();
         });
     }

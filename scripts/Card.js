@@ -1,12 +1,10 @@
 import {
-  toggleModal,
-  initialCards,
-} from "./utils.js"
+  toggleModal
+} from "./Utils.js"
 
 //variables for popup image
 const imagePopup = document.querySelector(".popup__image");
 const imageCaption = document.querySelector(".popup__caption");
-const imagePopupWindow = document.querySelector(".popup__picture-section");
 
 //closing popup array with overlay
 function formCloseOnClick(e) {
@@ -17,11 +15,12 @@ function formCloseOnClick(e) {
 document.addEventListener("click", formCloseOnClick);
 
 class Card {
-  constructor({data}, cardTemplateSelector, handleCardClick) {
+  constructor(data, cardTemplateSelector, handleCardClick) {
 
     this._link = data.link;
     this._name = data.name;
     this._handleCardClick = handleCardClick;
+    //console.log(this._handleCardClick);
     this._cardTemplateSelector = cardTemplateSelector;
   }
 
@@ -62,7 +61,6 @@ class Card {
     imagePopup.src = this._link;
     imagePopup.alt = this._name;
     imageCaption.textContent = this._name;
-    toggleModal(imagePopupWindow);
   }
 
   generateCard() {
