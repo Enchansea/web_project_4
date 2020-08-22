@@ -7,10 +7,12 @@ import FormValidator from "../scripts/FormValidator.js";
 import Card from "../scripts/Card.js";
 import "../pages/index.css";
 import PopupWithImage from "../scripts/PopupWithImage.js";
-//import PopupWithForm from "../scripts/PopupWithForm.js";
+import PopupWithForm from "../scripts/PopupWithForm.js";
 //import UserInfo from "../scripts/UserInfo.js";
 import Section from "../scripts/Section.js";
+import UserInfo from "../scripts/UserInfo.js";
 import { data } from "jquery";
+//import { data } from "jquery";
 
 // obj defaultConfig array, used in FormValidator.js
 const defultConfig = {
@@ -68,36 +70,45 @@ const cardTemplateSelector = ".card-template";
 const popupWithImage = new PopupWithImage(".popup__picture-section");
 popupWithImage.setEventListeners();
 
-
-//popup image and render card in the begining of array
-// const renderCard = (data) => {
-//   const card = new Card(data, cardTemplateSelector, function() {
-//     popupWithImage.open(data);
-//   });
-//   list.prepend(card.generateCard());
-// }
-
 const cardsList = new Section(
-  {data: initialCards,
+  {items: initialCards,
     renderer: (data) => {
       const card = new Card(data, cardTemplateSelector, function() {
         popupWithImage.open(data);
       });
-      const cardElement = list.prepend(card.generateCard());
+      const cardElement = card.generateCard();
       cardsList.addItem(cardElement);
     },
     containerSelector
   }
-)
+);
 
-//loop forEach card rendered
-// initialCards.forEach((data) => {
-//   renderCard(data);
-// })
+cardsList.renderItems();
 
-//const popupWithForm = new PopupWithForm(".popup__add-card");
-//popupWithForm.setEventListeners();
+// const editForm = new PopupWithForm({
+//   popupSelector: '.popup__edit-profile',
+//   handleSubmitForm: (item) => {
+//     const userInfo = new UserInfo('.popup__input_profile-name',
+//     '.popup__input_profile-about');
+//   }
+// });
+// editForm.setEventListeners();
 
+
+
+const addForm = new PopupWithForm({
+  popupSelector: '.popup__add-card',
+  handleSubmitForm: () => {
+    console.log("hello");
+    const newCard = new Card(data, cardTemplateSelector, function() {
+      popupWithImage.open(data);
+    });
+    const cardElement = newCard.generateCard();
+    cardsList.addItem(cardElement);
+  }
+})
+
+addForm.setEventListeners();
 
 //edit profile form handler
 function formSubmitHandler(e) {
@@ -117,9 +128,6 @@ editCloseButton.addEventListener("click", () => {
 addCardCloseButton.addEventListener('click', () => {
   toggleModal(addCardPopupWindow);
 })
-// imageCloseButton.addEventListener('click', () => {
-//   toggleModal(imagePopupWindow);
-// })
 
 //opening profile and card forms via buttons
 profileEditButton.addEventListener('click', () => {
