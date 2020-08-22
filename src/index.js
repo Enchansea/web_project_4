@@ -98,8 +98,8 @@ cardsList.renderItems();
 
 const addForm = new PopupWithForm({
   popupSelector: '.popup__add-card',
-  handleSubmitForm: () => {
-    console.log("hello");
+  handleSubmitForm: (data) => {
+    console.log();
     const newCard = new Card(data, cardTemplateSelector, function() {
       popupWithImage.open(data);
     });
