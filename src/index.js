@@ -8,11 +8,9 @@ import Card from "../scripts/Card.js";
 import "../pages/index.css";
 import PopupWithImage from "../scripts/PopupWithImage.js";
 import PopupWithForm from "../scripts/PopupWithForm.js";
-//import UserInfo from "../scripts/UserInfo.js";
 import Section from "../scripts/Section.js";
 import UserInfo from "../scripts/UserInfo.js";
 import { data } from "jquery";
-//import { data } from "jquery";
 
 // obj defaultConfig array, used in FormValidator.js
 const defultConfig = {
@@ -82,32 +80,51 @@ const cardsList = new Section(
     containerSelector
   }
 );
-
 cardsList.renderItems();
 
-// const editForm = new PopupWithForm({
-//   popupSelector: '.popup__edit-profile',
-//   handleSubmitForm: (item) => {
-//     const userInfo = new UserInfo('.popup__input_profile-name',
-//     '.popup__input_profile-about');
-//   }
+// const profileInfo = new UserInfo({
+//   nameSelector: nameUpdate,
+//   descriptionSelector: professionUpdate,
 // });
-// editForm.setEventListeners();
+
+// profileInfo.setUserInfo({
+//   userName: userInfo.name,
+//   userDescription: userDescription.about,
+// });
+
+// const handleProfileEdit = (data) => {
+//   const name =
+// }
+
+const profileForm = new PopupWithForm({
+  popupSelector: '.popup__edit-profile',
+  handleSubmitForm: () => {
+    const profileInfo =  new UserInfo({
+      nameSelector: ".profile__name",
+      descriptionSelector: "profile__about",
+    });
+    profileInfo.setUserInfo({
+      userName: inputName.value,
+      userDescription: inputAbout.value,
+    });
+
+  }
+});
+profileForm.setEventListeners();
 
 
 
+// generate card through PopupWithForm and use with Card
 const addForm = new PopupWithForm({
   popupSelector: '.popup__add-card',
   handleSubmitForm: (data) => {
-    console.log();
     const newCard = new Card(data, cardTemplateSelector, function() {
       popupWithImage.open(data);
     });
     const cardElement = newCard.generateCard();
     cardsList.addItem(cardElement);
   }
-})
-
+});
 addForm.setEventListeners();
 
 //edit profile form handler
