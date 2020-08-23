@@ -8,21 +8,22 @@ class Card {
     this._name = data.name;
     this._handleCardClick = handleCardClick;
     this._cardTemplateSelector = cardTemplateSelector;
-    this._card = this._getCardTemplate();
-    //console.log(this._card);
   }
 
   _getCardTemplate() {
-    const cardTemplate = document.querySelector(this._cardTemplateSelector).content.querySelector(".card__group").cloneNode(true);
+    const cardTemplate = document
+    .querySelector(this._cardTemplateSelector)
+    .content
+    .querySelector(".card__group")
+    .cloneNode(true);
     return cardTemplate;
   }
 
   _addEventListeners() {
-    console.log(this._card);
     this._card.querySelector(".card__like-button")
       .addEventListener("click", this._handleLikeIcon);
     this._card.querySelector(".card__remove-button")
-      .addEventListener("click", this._handleDeleteCard);
+      .addEventListener("click", () => this._handleDeleteCard());
     this._card.querySelector(".card__image")
       .addEventListener("click", () => this._handleCardClick());
   }
@@ -32,7 +33,6 @@ class Card {
   }
 
   _handleDeleteCard() {
-    console.log(this._card);
     this._card.remove();
     this._card = null;
   }
@@ -44,8 +44,7 @@ class Card {
   }
 
   generateCard() {
-    //this._card = this._getCardTemplate();
-    //console.log(this._card);
+    this._card = this._getCardTemplate();
     this._card.querySelector(".card__image").style.backgroundImage = `url(${this._link})`;
     this._card.querySelector(".card__title").textContent = this._name;
     this._addEventListeners();
