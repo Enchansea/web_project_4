@@ -17,7 +17,7 @@ class Popup {
     }
 
     _handleEscClose(e) {
-        if(e.witch = 27) {
+        if(e.which === 27) {
             this.close();
         }
     }

@@ -1,13 +1,15 @@
 const editProfilePopup = document.querySelector(".popup__edit-profile");
 const addCardPopupWindow = document.querySelector(".popup__add-card");
-export const addCardForm = editProfilePopup.querySelector(".popup__form");
-export const editProfileForm = addCardPopupWindow.querySelector(".popup__form");
-export const profileName = document.querySelector(".profile__name");
-export const profileAbout = document.querySelector(".profile__about");
+const addCardForm = editProfilePopup.querySelector(".popup__form");
+const editProfileForm = addCardPopupWindow.querySelector(".popup__form");
+const profileName = document.querySelector(".profile__name");
+const profileAbout = document.querySelector(".profile__about");
+const buttonEdit = document.querySelector(".profile__edit-button");
+const buttonAdd = document.querySelector(".profile__add-button");
 
 
 //card array containing name and link
-export const initialCards = [
+const initialCards = [
   {
       name: "Yosemite Valley",
       link: "https://code.s3.yandex.net/web-code/yosemite.jpg"
@@ -34,6 +36,7 @@ export const initialCards = [
   }
 ];
 
-export const containerSelector = ".card";
+const containerSelector = ".card";
+const templateSelector = ".card-template";
 
-
+export {addCardForm, editProfileForm, profileName, profileAbout, buttonEdit, buttonAdd, initialCards, containerSelector, templateSelector};

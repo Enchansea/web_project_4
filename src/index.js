@@ -1,18 +1,21 @@
 import {
   initialCards,
   containerSelector,
+  templateSelector,
   editProfileForm,
   addCardForm,
   profileName,
-  profileAbout
-} from "../scripts/Utils.js"
-import FormValidator from "../scripts/FormValidator.js";
-import Card from "../scripts/Card.js";
+  profileAbout,
+  buttonEdit,
+  buttonAdd
+} from "./scripts/Utils.js"
+import FormValidator from "./scripts/FormValidator.js";
+import Card from "./scripts/Card.js";
 import "../pages/index.css";
-import PopupWithImage from "../scripts/PopupWithImage.js";
-import PopupWithForm from "../scripts/PopupWithForm.js";
-import Section from "../scripts/Section.js";
-import UserInfo from "../scripts/UserInfo.js";
+import PopupWithImage from "./scripts/PopupWithImage.js";
+import PopupWithForm from "./scripts/PopupWithForm.js";
+import Section from "./scripts/Section.js";
+import UserInfo from "./scripts/UserInfo.js";
 
 
 // obj defaultConfig array, used in FormValidator.js
@@ -42,7 +45,7 @@ popupWithImage.setEventListeners();
 const cardsList = new Section(
   {items: initialCards,
     renderer: (data) => {
-      const card = new Card(data, ".card-template", function() {
+      const card = new Card(data, templateSelector, function() {
         popupWithImage.open(data);
       });
       const cardElement = card.generateCard();
@@ -59,7 +62,7 @@ cardsList.renderItems();
 const addForm = new PopupWithForm({
   popupSelector: ".popup__add-card",
   handleSubmitForm: (data) => {
-    const newCard = new Card(data, ".card-template", function() {
+    const newCard = new Card(data, templateSelector, function() {
       popupWithImage.open(data);
       //console.log(popupWithImage.open(data));
     });
@@ -68,6 +71,7 @@ const addForm = new PopupWithForm({
   }
 });
 addForm.setEventListeners();
+buttonAdd.addEventListener("click", () => {addForm.open()});
 
 // handles edit profile section and new user data
 const profileInfo =  new UserInfo({
@@ -90,4 +94,5 @@ const profileForm = new PopupWithForm({
   }
 });
 profileForm.setEventListeners();
+buttonEdit.addEventListener("click", () => {profileForm.open()});
 
