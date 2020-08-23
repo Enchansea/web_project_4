@@ -2,37 +2,27 @@
 const imagePopup = document.querySelector(".popup__image");
 const imageCaption = document.querySelector(".popup__caption");
 
-
 class Card {
   constructor(data, cardTemplateSelector, handleCardClick) {
-
     this._link = data.link;
     this._name = data.name;
     this._handleCardClick = handleCardClick;
-    //console.log(this._handleCardClick);
     this._cardTemplateSelector = cardTemplateSelector;
+    this._card = this._getCardTemplate();
+    //console.log(this._card);
   }
 
   _getCardTemplate() {
-    const cardTemplate = document
-      .querySelector(this._cardTemplateSelector)
-      .content
-      .querySelector(".card__group")
-      .cloneNode(true);
-
+    const cardTemplate = document.querySelector(this._cardTemplateSelector).content.querySelector(".card__group").cloneNode(true);
     return cardTemplate;
   }
 
   _addEventListeners() {
+    console.log(this._card);
     this._card.querySelector(".card__like-button")
       .addEventListener("click", this._handleLikeIcon);
-
     this._card.querySelector(".card__remove-button")
       .addEventListener("click", this._handleDeleteCard);
-
-    // this._card.querySelector(".card__image")
-    //   .addEventListener("click", () => this._handlePreviewPicture());
-
     this._card.querySelector(".card__image")
       .addEventListener("click", () => this._handleCardClick());
   }
@@ -41,8 +31,10 @@ class Card {
     e.target.classList.toggle("card__like-button_clicked");
   }
 
-  _handleDeleteCard(e) {
-    e.target.closest(".card__group").remove();
+  _handleDeleteCard() {
+    console.log(this._card);
+    this._card.remove();
+    this._card = null;
   }
 
   _handleCardClick() {
@@ -52,15 +44,12 @@ class Card {
   }
 
   generateCard() {
-    const element = this._getCardTemplate();
-
-    this._card = element;
+    //this._card = this._getCardTemplate();
+    //console.log(this._card);
     this._card.querySelector(".card__image").style.backgroundImage = `url(${this._link})`;
     this._card.querySelector(".card__title").textContent = this._name;
-
     this._addEventListeners();
     return this._card;
   }
 }
-
 export default Card;

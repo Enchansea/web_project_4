@@ -4,7 +4,7 @@
   "description": "* Intro\r * Plans\r * Website",
   "main": "index.js",
   "scripts": {
-    "build": "rm -rf dist && webpack",
+    "build": "rimraf -rf dist && webpack",
     "dev": "webpack-dev-server --open --watch"
   },
   "repository": {
@@ -18,8 +18,7 @@
   },
   "homepage": "https://github.com/Enchansea/web_project_4#readme",
   "dependencies": {
-    "babel-polyfill": "^6.26.0",
-    "jquery": "^3.5.1"
+    "babel-polyfill": "^6.26.0"
   },
   "devDependencies": {
     "@babel/core": "^7.10.5",

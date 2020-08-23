@@ -8,14 +8,14 @@ import {
   profileAbout,
   buttonEdit,
   buttonAdd
-} from "./scripts/Utils.js"
-import FormValidator from "./scripts/FormValidator.js";
-import Card from "./scripts/Card.js";
+} from "./components/Utils.js"
+import FormValidator from "./components/FormValidator.js";
+import Card from "./components/Card.js";
 import "../pages/index.css";
-import PopupWithImage from "./scripts/PopupWithImage.js";
-import PopupWithForm from "./scripts/PopupWithForm.js";
-import Section from "./scripts/Section.js";
-import UserInfo from "./scripts/UserInfo.js";
+import PopupWithImage from "./components/PopupWithImage.js";
+import PopupWithForm from "./components/PopupWithForm.js";
+import Section from "./components/Section.js";
+import UserInfo from "./components/UserInfo.js";
 
 
 // obj defaultConfig array, used in FormValidator.js
@@ -45,7 +45,7 @@ popupWithImage.setEventListeners();
 const cardsList = new Section(
   {items: initialCards,
     renderer: (data) => {
-      const card = new Card(data, templateSelector, function() {
+      const card = new Card(data, templateSelector, () => {
         popupWithImage.open(data);
       });
       const cardElement = card.generateCard();
@@ -62,7 +62,7 @@ cardsList.renderItems();
 const addForm = new PopupWithForm({
   popupSelector: ".popup__add-card",
   handleSubmitForm: (data) => {
-    const newCard = new Card(data, templateSelector, function() {
+    const newCard = new Card(data, templateSelector, () => {
       popupWithImage.open(data);
       //console.log(popupWithImage.open(data));
     });
