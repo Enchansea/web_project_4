@@ -24,7 +24,6 @@ class Card {
     this._cardTemplateSelector = cardTemplateSelector;
   }
 
-
   _getCardTemplate() {
     const cardTemplate = document
       .querySelector(this._cardTemplateSelector)

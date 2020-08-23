@@ -10,7 +10,7 @@ class UserInfo {
       }
     }
 
-    setUserInfo() {
+    setUserInfo({userName, userDescription}) {
       this._nameSelector.textContent = userName;
       this._descriptionSelector.textContent = userDescription;
     }

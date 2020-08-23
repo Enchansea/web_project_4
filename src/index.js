@@ -45,23 +45,15 @@ const addCardCloseButton = addCardPopupWindow.querySelector(".popup__close-butto
 const imageCloseButton = imagePopupWindow.querySelector(".popup__close-button");
 
 //profile form data
-const inputName = document.querySelector(".popup__input_profile-name");
-const inputAbout = document.querySelector(".popup__input_profile-about");
+//const inputName = document.querySelector(".popup__input_profile-name");
+//const inputAbout = document.querySelector(".popup__input_profile-about");
 
 //profile name/about selectors
 const profileName = document.querySelector(".profile__name");
 const profileAbout = document.querySelector(".profile__about");
 
-
-//card data input
-const newCardName = document.querySelector(".popup__input_card-name");
-const newCardUrl = document.querySelector(".popup__input_card-url");
-
-// open/close popup when edit/add button clicked
-const editForm = document.querySelector(".popup__form");
-
 //card template inside unorderedlist selector
-const list = document.querySelector(".card");
+//const list = document.querySelector(".card");
 const cardTemplateSelector = ".card-template";
 
 
@@ -82,41 +74,9 @@ const cardsList = new Section(
 );
 cardsList.renderItems();
 
-// const profileInfo = new UserInfo({
-//   nameSelector: nameUpdate,
-//   descriptionSelector: professionUpdate,
-// });
-
-// profileInfo.setUserInfo({
-//   userName: userInfo.name,
-//   userDescription: userDescription.about,
-// });
-
-// const handleProfileEdit = (data) => {
-//   const name =
-// }
-
-const profileForm = new PopupWithForm({
-  popupSelector: '.popup__edit-profile',
-  handleSubmitForm: () => {
-    const profileInfo =  new UserInfo({
-      nameSelector: ".profile__name",
-      descriptionSelector: "profile__about",
-    });
-    profileInfo.setUserInfo({
-      userName: inputName.value,
-      userDescription: inputAbout.value,
-    });
-
-  }
-});
-profileForm.setEventListeners();
-
-
-
 // generate card through PopupWithForm and use with Card
 const addForm = new PopupWithForm({
-  popupSelector: '.popup__add-card',
+  popupSelector: ".popup__add-card",
   handleSubmitForm: (data) => {
     const newCard = new Card(data, cardTemplateSelector, function() {
       popupWithImage.open(data);
@@ -127,16 +87,26 @@ const addForm = new PopupWithForm({
 });
 addForm.setEventListeners();
 
-//edit profile form handler
-function formSubmitHandler(e) {
-  e.preventDefault();
-  profileName.textContent = inputName.value;
-  profileAbout.textContent = inputAbout.value;
-  toggleModal(editProfilePopup);
+const profileInfo =  new UserInfo({
+  nameSelector: profileName,
+  descriptionSelector: profileAbout,
+});
+
+const handleProfileEdit = (data) => {
+  profileInfo.setUserInfo({
+    userName: data.name,
+    userDescription: data.about,
+  });
 }
 
-//event listener to submit profile form
-editForm.addEventListener("submit", formSubmitHandler);
+const profileForm = new PopupWithForm({
+  popupSelector: ".popup__edit-profile",
+  handleSubmitForm: (data) => {
+    handleProfileEdit(data);
+    profileForm.close();
+  }
+});
+profileForm.setEventListeners();
 
 //toggling close buttons
 editCloseButton.addEventListener("click", () => {
@@ -144,6 +114,10 @@ editCloseButton.addEventListener("click", () => {
 })
 addCardCloseButton.addEventListener('click', () => {
   toggleModal(addCardPopupWindow);
+})
+
+imageCloseButton.addEventListener('click', () =>{
+  toggleModal(imagePopupWindow);
 })
 
 //opening profile and card forms via buttons
