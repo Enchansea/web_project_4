@@ -1,18 +1,7 @@
-import {
-  toggleModal
-} from "./Utils.js"
-
 //variables for popup image
 const imagePopup = document.querySelector(".popup__image");
 const imageCaption = document.querySelector(".popup__caption");
 
-//closing popup array with overlay
-function formCloseOnClick(e) {
-  if(e.target === e.target.closest(".popup")) {
-    toggleModal(document.querySelector(".popup_visible"));
-  }
-}
-document.addEventListener("click", formCloseOnClick);
 
 class Card {
   constructor(data, cardTemplateSelector, handleCardClick) {
@@ -41,8 +30,8 @@ class Card {
     this._card.querySelector(".card__remove-button")
       .addEventListener("click", this._handleDeleteCard);
 
-    this._card.querySelector(".card__image")
-      .addEventListener("click", () => this._handlePreviewPicture());
+    // this._card.querySelector(".card__image")
+    //   .addEventListener("click", () => this._handlePreviewPicture());
 
     this._card.querySelector(".card__image")
       .addEventListener("click", () => this._handleCardClick());
@@ -56,7 +45,7 @@ class Card {
     e.target.closest(".card__group").remove();
   }
 
-  _handlePreviewPicture() {
+  _handleCardClick() {
     imagePopup.src = this._link;
     imagePopup.alt = this._name;
     imageCaption.textContent = this._name;
