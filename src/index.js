@@ -1,5 +1,4 @@
 import {
-  initialCards,
   containerSelector,
   templateSelector,
   editProfileForm,
@@ -16,7 +15,69 @@ import PopupWithImage from "./components/PopupWithImage.js";
 import PopupWithForm from "./components/PopupWithForm.js";
 import Section from "./components/Section.js";
 import UserInfo from "./components/UserInfo.js";
+import Api from "./components/Api.js"
 
+  const api = new Api({
+    baseUrl: "https://around.nomoreparties.co/v1/group-4",
+    headers: {
+      authorization: "82ebb591-5edb-4637-a2e8-efb178ef4c56",
+      "Content-Type": "application/json"
+    }
+  });
+
+  //console.log(api.getCardList)
+
+api.getCardList()
+.then(res => {
+  //console.log(res);
+  const cardsList = new Section(
+    {items: res,
+      renderer: (data) => {
+        const card = new Card(data, templateSelector, () => {
+          popupWithImage.open(data);
+        },
+        // handleDeleteClick: (cardId) => {
+        //   api.removeCard(cardId);
+        // }
+        )
+        const cardElement = card.generateCard();
+        cardsList.addItem(cardElement);
+      },
+      containerSelector
+    }
+  );
+  cardsList.renderItems();
+
+  const addForm = new PopupWithForm({
+    popupSelector: ".popup__add-card",
+    handleSubmitForm: (data) => {
+      console.log(api.addCard);
+      api.addCard(data)
+        .then(res => {
+          const card = new Card(data, templateSelector, () => {
+          popupWithImage.open(data);
+          });
+          const cardElement = card.generateCard();
+          cardsList.addItem(cardElement);
+        });
+
+    }
+  });
+  addForm.setEventListeners();
+  buttonAdd.addEventListener("click", () => {addForm.open()});
+})
+
+const profileInfo =  new UserInfo({
+  nameSelector: profileName,
+  descriptionSelector: profileAbout,
+});
+
+//console.log(api.getUserInfo);
+api.getUserInfo()
+.then(res => {
+  //console.log("profile!!!!", res);
+  profileInfo.setUserInfo({ userName: res.name, userDescription: res.about })
+})
 
 // obj defaultConfig array, used in FormValidator.js
 const defultConfig = {
@@ -27,7 +88,6 @@ const defultConfig = {
   errorClass: "popup__error_visible"
 }
 
-
 //new FormValidator for Profile and Add Card
 const editProfileValidation = new FormValidator(defultConfig, editProfileForm);
 const addCardValidation = new FormValidator(defultConfig, addCardForm);
@@ -36,63 +96,32 @@ const addCardValidation = new FormValidator(defultConfig, addCardForm);
 editProfileValidation.enableValidation();
 addCardValidation.enableValidation();
 
-
-
+//declares new PopupWithImage and adds eventListeners.
 const popupWithImage = new PopupWithImage(".popup__picture-section");
 popupWithImage.setEventListeners();
 
-// handles generating cards from a list called initalCards
-const cardsList = new Section(
-  {items: initialCards,
-    renderer: (data) => {
-      const card = new Card(data, templateSelector, () => {
-        popupWithImage.open(data);
-      });
-      const cardElement = card.generateCard();
-      cardsList.addItem(cardElement);
-    },
-    containerSelector
-  }
-);
-cardsList.renderItems();
 
-//const popupWithForm = new PopupWithForm(".")
 
-// handles generating new cards with add-card button
-const addForm = new PopupWithForm({
-  popupSelector: ".popup__add-card",
-  handleSubmitForm: (data) => {
-    const newCard = new Card(data, templateSelector, () => {
-      popupWithImage.open(data);
-      //console.log(popupWithImage.open(data));
-    });
-    const cardElement = newCard.generateCard();
-    cardsList.addItem(cardElement);
-  }
-});
-addForm.setEventListeners();
-buttonAdd.addEventListener("click", () => {addForm.open()});
+function submitForm(data) {
+  handleProfileEdit(data);
+  profileForm.open();
+}
 
-// handles edit profile section and new user data
-const profileInfo =  new UserInfo({
-  nameSelector: profileName,
-  descriptionSelector: profileAbout,
-});
-
-const handleProfileEdit = (data) => {
+function handleProfileEdit(data) {
   profileInfo.setUserInfo({
     userName: data.name,
     userDescription: data.about,
   });
 }
 
+
+
+
 const profileForm = new PopupWithForm({
   popupSelector: ".popup__edit-profile",
-  handleSubmitForm: (data) => {
-    handleProfileEdit(data);
-    profileForm.open();
-  }
+  handleSubmitForm: submitForm
 });
+
 profileForm.setEventListeners();
 buttonEdit.addEventListener("click", () => {profileForm.open()});
 

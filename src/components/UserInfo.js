@@ -1,5 +1,5 @@
 class UserInfo {
-  constructor({nameSelector, descriptionSelector}) {
+  constructor({ nameSelector, descriptionSelector }) {
     this._nameSelector = nameSelector;
     this._descriptionSelector = descriptionSelector;
   }

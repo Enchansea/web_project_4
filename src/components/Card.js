@@ -1,12 +1,14 @@
 //variables for popup image
-const imagePopup = document.querySelector(".popup__image");
-const imageCaption = document.querySelector(".popup__caption");
+//const imagePopup = document.querySelector(".popup__image");
+//const imageCaption = document.querySelector(".popup__caption");
 
 class Card {
-  constructor(data, cardTemplateSelector, handleCardClick) {
+  constructor(data, cardTemplateSelector, handleCardClick, handleDeleteClick) {
     this._link = data.link;
     this._name = data.name;
+    this._id = data.id;
     this._handleCardClick = handleCardClick;
+    this._handleDeleteClick = handleDeleteClick;
     this._cardTemplateSelector = cardTemplateSelector;
   }
 
@@ -17,6 +19,10 @@ class Card {
     .querySelector(".card__group")
     .cloneNode(true);
     return cardTemplate;
+  }
+
+  id() {
+    return this._id()
   }
 
   _addEventListeners() {
@@ -37,11 +43,12 @@ class Card {
     this._card = null;
   }
 
-  _handleCardClick() {
-    imagePopup.src = this._link;
-    imagePopup.alt = this._name;
-    imageCaption.textContent = this._name;
-  }
+  // _handleCardClick() {
+  //   console.log("inside handleCardClick");
+  //   imagePopup.src = this._link;
+  //   imagePopup.alt = this._name;
+  //   imageCaption.textContent = this._name;
+  // }
 
   generateCard() {
     this._card = this._getCardTemplate();
