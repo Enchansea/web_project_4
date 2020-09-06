@@ -18,20 +18,32 @@ import Section from "./components/Section.js";
 import UserInfo from "./components/UserInfo.js";
 import Api from "./components/Api.js"
 
-  const api = new Api({
-    baseUrl: "https://around.nomoreparties.co/v1/group-4",
-    headers: {
-      authorization: "82ebb591-5edb-4637-a2e8-efb178ef4c56",
-      "Content-Type": "application/json"
-    }
-  });
+const api = new Api({
+  baseUrl: "https://around.nomoreparties.co/v1/group-4",
+  headers: {
+    authorization: "82ebb591-5edb-4637-a2e8-efb178ef4c56",
+    "Content-Type": "application/json"
+  }
+});
 
-  //console.log(api.getCardList)
+// const handleDeleteClick = cardId => {
+//   return api.removeCard(cardId);
+// }
+
+// const appDelete = new PopupWithForm({
+//   popupSelector: ".popup__delete-confirm",
+//   handleSubmitForm: () => {
+//     handleDeleteClick();
+//     appDelete.close();
+//   }
+// });
 
 //console.log(myId);
 
 api.getAppInfo()
 .then(([userInfoData, initalCardsData]) => {
+  //console.log("data", userInfoData);
+  //console.log("initial", initalCardsData);
   const userId = userInfoData._id;
   //console.log(userId);
   const cardsList = new Section(
@@ -59,9 +71,11 @@ api.getAppInfo()
     handleSubmitForm: (data) => {
 
       api.addCard(data)
-        .then(() => {
+        .then(res => {
 
-          const card = new Card(data, templateSelector, () => {
+          const card = new Card(data,
+            userId,
+            templateSelector, () => {
           popupWithImage.open(data);
           });
           const cardElement = card.generateCard();
@@ -81,7 +95,7 @@ const profileInfo =  new UserInfo({
 //console.log(api.getUserInfo);
 api.getUserInfo()
 .then(res => {
-  console.log("profile!!!!", res);
+  //console.log("profile!!!!", res);
   profileInfo.setUserInfo({ userName: res.name, userDescription: res.about })
 })
 

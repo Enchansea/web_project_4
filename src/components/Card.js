@@ -1,6 +1,3 @@
-//variables for popup image
-//const imagePopup = document.querySelector(".popup__image");
-//const imageCaption = document.querySelector(".popup__caption");
 import {
   myId
 } from "./Utils.js";
@@ -10,16 +7,19 @@ class Card {
     this._link = data.link;
     this._name = data.name;
     this._userId = userId;
-    console.log("id!!!", this._userId);
-    //this._id = data.id;
-    //console.log(data.id);
-
+    //console.log("user id", this._userId);
     this._owner = data.owner;
-    //console.log("owner!!!", this._owner);
+    //console.log("owner", this._owner);
+    //console.log("owner id", this._owner._id);
     this._handleCardClick = handleCardClick;
     this._handleDeleteClick = handleDeleteClick;
     this._cardTemplateSelector = cardTemplateSelector;
   }
+
+  // id() {
+  //   console.log(this._id);
+  //   return this._id;
+  // }
 
   _getCardTemplate() {
     const cardTemplate = document
@@ -29,15 +29,13 @@ class Card {
     .cloneNode(true);
     return cardTemplate;
   }
-  // id() {
-  //   return this._id()
-  // }
+
   _addEventListeners() {
     const deleteButton = this._card.querySelector('.card__remove-button');
-    if (this._owner._id !== this._userId) {
-      //console.log("hey", this._owner._id);
-      deleteButton.style.display = 'none';
-    }
+    // if (this._owner._id !== this._userId) {
+    //   console.log("hey", this._owner._id);
+    //   deleteButton.style.display = 'none';
+    // }
     this._card.querySelector(".card__like-button")
       .addEventListener("click", this._handleLikeIcon);
     this._card.querySelector(".card__remove-button")
@@ -58,13 +56,6 @@ class Card {
     this._card.remove();
     this._card = null;
   }
-
-  // _handleCardClick() {
-  //   console.log("inside handleCardClick");
-  //   imagePopup.src = this._link;
-  //   imagePopup.alt = this._name;
-  //   imageCaption.textContent = this._name;
-  // }
 
   generateCard() {
     this._card = this._getCardTemplate();
