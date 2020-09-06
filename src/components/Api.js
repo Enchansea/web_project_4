@@ -23,8 +23,8 @@ class Api {
     }
 
     getAppInfo() {
-      //reccomended in video to do it.
-     }
+      return Promise.all([this.getUserInfo(), this.getCardList()])
+    }
 
     //POST https://around.nomoreparties.co/v1/group-4/cards
     addCard({ name, link}) {

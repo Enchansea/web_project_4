@@ -1,12 +1,21 @@
 //variables for popup image
 //const imagePopup = document.querySelector(".popup__image");
 //const imageCaption = document.querySelector(".popup__caption");
+import {
+  myId
+} from "./Utils.js";
 
 class Card {
-  constructor(data, cardTemplateSelector, handleCardClick, handleDeleteClick) {
+  constructor(data, userId, cardTemplateSelector, handleDeleteClick, handleCardClick) {
     this._link = data.link;
     this._name = data.name;
-    this._id = data.id;
+    this._userId = userId;
+    console.log("id!!!", this._userId);
+    //this._id = data.id;
+    //console.log(data.id);
+
+    this._owner = data.owner;
+    //console.log("owner!!!", this._owner);
     this._handleCardClick = handleCardClick;
     this._handleDeleteClick = handleDeleteClick;
     this._cardTemplateSelector = cardTemplateSelector;
@@ -20,18 +29,25 @@ class Card {
     .cloneNode(true);
     return cardTemplate;
   }
-
-  id() {
-    return this._id()
-  }
-
+  // id() {
+  //   return this._id()
+  // }
   _addEventListeners() {
+    const deleteButton = this._card.querySelector('.card__remove-button');
+    if (this._owner._id !== this._userId) {
+      //console.log("hey", this._owner._id);
+      deleteButton.style.display = 'none';
+    }
     this._card.querySelector(".card__like-button")
       .addEventListener("click", this._handleLikeIcon);
     this._card.querySelector(".card__remove-button")
       .addEventListener("click", () => this._handleDeleteCard());
     this._card.querySelector(".card__image")
       .addEventListener("click", () => this._handleCardClick());
+      this._card.querySelector(".card__remove-button")
+      .addEventListener("click", () => this._handleDeleteClick());
+      // .addEventListener("click", () => this._handleDeleteClick(this.id()));
+
   }
 
   _handleLikeIcon(e) {

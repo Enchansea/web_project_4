@@ -6,7 +6,8 @@ import {
   profileName,
   profileAbout,
   buttonEdit,
-  buttonAdd
+  buttonAdd,
+  myId
 } from "./components/Utils.js"
 import FormValidator from "./components/FormValidator.js";
 import Card from "./components/Card.js";
@@ -27,19 +28,24 @@ import Api from "./components/Api.js"
 
   //console.log(api.getCardList)
 
-api.getCardList()
-.then(res => {
-  //console.log(res);
+//console.log(myId);
+
+api.getAppInfo()
+.then(([userInfoData, initalCardsData]) => {
+  const userId = userInfoData._id;
+  //console.log(userId);
   const cardsList = new Section(
-    {items: res,
+    {items: initalCardsData,
       renderer: (data) => {
-        const card = new Card(data, templateSelector, () => {
-          popupWithImage.open(data);
+        const card = new Card(data,
+          userId,
+          templateSelector,
+          (cardId) => {
+          api.removeCard(cardId);
         },
-        // handleDeleteClick: (cardId) => {
-        //   api.removeCard(cardId);
-        // }
-        )
+          () => {
+          popupWithImage.open(data);
+        })
         const cardElement = card.generateCard();
         cardsList.addItem(cardElement);
       },
@@ -51,16 +57,16 @@ api.getCardList()
   const addForm = new PopupWithForm({
     popupSelector: ".popup__add-card",
     handleSubmitForm: (data) => {
-      console.log(api.addCard);
+
       api.addCard(data)
-        .then(res => {
+        .then(() => {
+
           const card = new Card(data, templateSelector, () => {
           popupWithImage.open(data);
           });
           const cardElement = card.generateCard();
           cardsList.addItem(cardElement);
         });
-
     }
   });
   addForm.setEventListeners();
@@ -75,7 +81,7 @@ const profileInfo =  new UserInfo({
 //console.log(api.getUserInfo);
 api.getUserInfo()
 .then(res => {
-  //console.log("profile!!!!", res);
+  console.log("profile!!!!", res);
   profileInfo.setUserInfo({ userName: res.name, userDescription: res.about })
 })
 
@@ -113,9 +119,6 @@ function handleProfileEdit(data) {
     userDescription: data.about,
   });
 }
-
-
-
 
 const profileForm = new PopupWithForm({
   popupSelector: ".popup__edit-profile",
