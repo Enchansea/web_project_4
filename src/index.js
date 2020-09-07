@@ -6,8 +6,7 @@ import {
   profileName,
   profileAbout,
   buttonEdit,
-  buttonAdd,
-  myId
+  buttonAdd
 } from "./components/Utils.js"
 import FormValidator from "./components/FormValidator.js";
 import Card from "./components/Card.js";
@@ -26,34 +25,41 @@ const api = new Api({
   }
 });
 
-// const handleDeleteClick = cardId => {
-//   return api.removeCard(cardId);
-// }
+const handleDeleteClick = cardId => {
+  return api.removeCard(cardId);
+  console.log("maybe", cardId);
+}
 
-// const appDelete = new PopupWithForm({
-//   popupSelector: ".popup__delete-confirm",
-//   handleSubmitForm: () => {
-//     handleDeleteClick();
-//     appDelete.close();
-//   }
-// });
 
-//console.log(myId);
+const appDelete = new PopupWithForm({
+  popupSelector: ".popup__delete-confirm",
+  handleSubmitForm: () => {
+    handleDeleteClick();
+    appDelete.close();
+  }
+});
+
 
 api.getAppInfo()
 .then(([userInfoData, initalCardsData]) => {
   //console.log("data", userInfoData);
-  //console.log("initial", initalCardsData);
+  console.log("initial", initalCardsData);
   const userId = userInfoData._id;
-  //console.log(userId);
+  //const cardId = initalCardsData._id;
+  //console.log("cardId", cardId);
   const cardsList = new Section(
     {items: initalCardsData,
       renderer: (data) => {
         const card = new Card(data,
           userId,
           templateSelector,
-          (cardId) => {
-          api.removeCard(cardId);
+          (data) => {
+          appDelete.open();
+          appDelete.setSubmitAction(() => {
+            handleDeleteClick(data).then(() => {
+              card.removeCard(data);
+            })
+          })
         },
           () => {
           popupWithImage.open(data);
@@ -71,8 +77,8 @@ api.getAppInfo()
     handleSubmitForm: (data) => {
 
       api.addCard(data)
-        .then(res => {
-
+        .then(data => {
+          console.log("data!!!", data);
           const card = new Card(data,
             userId,
             templateSelector, () => {

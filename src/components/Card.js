@@ -4,22 +4,21 @@ import {
 
 class Card {
   constructor(data, userId, cardTemplateSelector, handleDeleteClick, handleCardClick) {
+    //console.log("data", data);
     this._link = data.link;
     this._name = data.name;
     this._userId = userId;
-    //console.log("user id", this._userId);
     this._owner = data.owner;
-    //console.log("owner", this._owner);
-    //console.log("owner id", this._owner._id);
+    this._id = data._id;
     this._handleCardClick = handleCardClick;
     this._handleDeleteClick = handleDeleteClick;
     this._cardTemplateSelector = cardTemplateSelector;
   }
 
-  // id() {
-  //   console.log(this._id);
-  //   return this._id;
-  // }
+  id() {
+    console.log("hello", this._id);
+    return this._id;
+  }
 
   _getCardTemplate() {
     const cardTemplate = document
@@ -32,10 +31,9 @@ class Card {
 
   _addEventListeners() {
     const deleteButton = this._card.querySelector('.card__remove-button');
-    // if (this._owner._id !== this._userId) {
-    //   console.log("hey", this._owner._id);
-    //   deleteButton.style.display = 'none';
-    // }
+    if (this._owner._id !== this._userId) {
+      deleteButton.style.display = 'none';
+    }
     this._card.querySelector(".card__like-button")
       .addEventListener("click", this._handleLikeIcon);
     this._card.querySelector(".card__remove-button")
@@ -43,9 +41,7 @@ class Card {
     this._card.querySelector(".card__image")
       .addEventListener("click", () => this._handleCardClick());
       this._card.querySelector(".card__remove-button")
-      .addEventListener("click", () => this._handleDeleteClick());
-      // .addEventListener("click", () => this._handleDeleteClick(this.id()));
-
+      .addEventListener("click", () => this._handleDeleteClick(this.id()));
   }
 
   _handleLikeIcon(e) {

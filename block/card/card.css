@@ -3,6 +3,7 @@
 @import url('__title/card__title.css');
 @import url('__like-button/card__like-button.css');
 @import url('__remove-button/card__remove-button.css');
+@import url('__like-count/card__like-count.css');
 
 .card {
   text-decoration: none;

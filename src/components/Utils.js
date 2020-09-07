@@ -6,7 +6,7 @@ const profileName = document.querySelector(".profile__name");
 const profileAbout = document.querySelector(".profile__about");
 const buttonEdit = document.querySelector(".profile__edit-button");
 const buttonAdd = document.querySelector(".profile__add-button");
-const myId = "82ebb591-5edb-4637-a2e8-efb178ef4c56";
+const myId = "9f87343e26d7981e15bb8b00";
 
 
 //card array containing name and link
