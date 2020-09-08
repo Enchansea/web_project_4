@@ -16,7 +16,6 @@ class Card {
   }
 
   id() {
-    console.log("hello", this._id);
     return this._id;
   }
 

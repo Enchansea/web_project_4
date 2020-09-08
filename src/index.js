@@ -25,41 +25,29 @@ const api = new Api({
   }
 });
 
-const handleDeleteClick = cardId => {
-  return api.removeCard(cardId);
-  console.log("maybe", cardId);
-}
 
 
-const appDelete = new PopupWithForm({
+const cardDelete = new PopupWithForm({
   popupSelector: ".popup__delete-confirm",
-  handleSubmitForm: () => {
-    handleDeleteClick();
-    appDelete.close();
+  handleSubmitForm: (id) => {
+    console.log("in handleSubmit", id);
+    api.removeCard(id)
+    .then (() => {cardDelete.close()});    
   }
 });
 
-
 api.getAppInfo()
 .then(([userInfoData, initalCardsData]) => {
-  //console.log("data", userInfoData);
-  console.log("initial", initalCardsData);
-  const userId = userInfoData._id;
-  //const cardId = initalCardsData._id;
-  //console.log("cardId", cardId);
+  //console.log("initial", initalCardsData);
+  const userId = userInfoData._id; 
   const cardsList = new Section(
     {items: initalCardsData,
       renderer: (data) => {
         const card = new Card(data,
           userId,
           templateSelector,
-          (data) => {
-          appDelete.open();
-          appDelete.setSubmitAction(() => {
-            handleDeleteClick(data).then(() => {
-              card.removeCard(data);
-            })
-          })
+          (id) => {
+          cardDelete.open();          
         },
           () => {
           popupWithImage.open(data);
@@ -78,7 +66,6 @@ api.getAppInfo()
 
       api.addCard(data)
         .then(data => {
-          console.log("data!!!", data);
           const card = new Card(data,
             userId,
             templateSelector, () => {
