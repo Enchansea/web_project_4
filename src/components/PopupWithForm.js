@@ -27,6 +27,7 @@ class PopupWithForm extends Popup {
 
 
   setSubmitAction(action) {
+    console.log(action);
     this._handleSubmitForm = action;
   }
 }

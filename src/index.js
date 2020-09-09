@@ -29,17 +29,18 @@ const api = new Api({
 
 const cardDelete = new PopupWithForm({
   popupSelector: ".popup__delete-confirm",
-  handleSubmitForm: (id) => {
-    console.log("in handleSubmit", id);
+  handleSubmitForm: (data) => {
+    console.log ('hi', data);
     api.removeCard(id)
-    .then (() => {cardDelete.close()});    
+    .then (() => {cardDelete.close()});
+    console.log("in handleSubmit", id);
   }
 });
 
 api.getAppInfo()
 .then(([userInfoData, initalCardsData]) => {
   //console.log("initial", initalCardsData);
-  const userId = userInfoData._id; 
+  const userId = userInfoData._id;
   const cardsList = new Section(
     {items: initalCardsData,
       renderer: (data) => {
@@ -47,7 +48,13 @@ api.getAppInfo()
           userId,
           templateSelector,
           (id) => {
-          cardDelete.open();          
+            console.log("cardD", cardDelete.open);
+          cardDelete.open();
+          cardDelete.setSubmitAction(() => {
+            handleDeleteClick(id).then(() => {
+              card.removeCard();
+            })
+          })
         },
           () => {
           popupWithImage.open(data);
@@ -68,7 +75,18 @@ api.getAppInfo()
         .then(data => {
           const card = new Card(data,
             userId,
-            templateSelector, () => {
+            templateSelector,
+            (id) => {
+              cardDelete.open();
+              cardDelete.setSubmitAction(() => {
+                console.log('id', id);
+                handleDeleteClick(id).then(() => {
+                  console.log(id);
+                  card.removeCard();
+                })
+              })
+            },
+            () => {
           popupWithImage.open(data);
           });
           const cardElement = card.generateCard();
