@@ -6,6 +6,9 @@ const profileName = document.querySelector(".profile__name");
 const profileAbout = document.querySelector(".profile__about");
 const buttonEdit = document.querySelector(".profile__edit-button");
 const buttonAdd = document.querySelector(".profile__add-button");
+const profileImage = document.querySelector(".profile__avatar-overlay");
+const profileAvatar = document.querySelector(".profile__img");
+const avatarImageInput = document.querySelector(".popup__input_card-url");
 const myId = "9f87343e26d7981e15bb8b00";
 
 
@@ -40,4 +43,4 @@ const initialCards = [
 const containerSelector = ".card";
 const templateSelector = ".card-template";
 
-export {addCardForm, editProfileForm, profileName, profileAbout, buttonEdit, buttonAdd, initialCards, containerSelector, templateSelector, myId};
+export {addCardForm, editProfileForm, profileName, profileAbout, buttonEdit, buttonAdd, initialCards, containerSelector, templateSelector, profileImage, profileAvatar, avatarImageInput, myId};

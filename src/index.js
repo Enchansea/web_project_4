@@ -6,7 +6,10 @@ import {
   profileName,
   profileAbout,
   buttonEdit,
-  buttonAdd
+  buttonAdd,
+  profileImage,
+  profileAvatar,
+  avatarImageInput
 } from "./components/Utils.js"
 import FormValidator from "./components/FormValidator.js";
 import Card from "./components/Card.js";
@@ -25,17 +28,18 @@ const api = new Api({
   }
 });
 
-
+function handleRemoveClick(cardId) {
+  return api.removeCard(cardId);
+}
 
 const cardDelete = new PopupWithForm({
   popupSelector: ".popup__delete-confirm",
-  handleSubmitForm: (data) => {
-    console.log ('hi', data);
-    api.removeCard(id)
-    .then (() => {cardDelete.close()});
-    console.log("in handleSubmit", id);
+  handleSubmitForm: () => {
+    handleRemoveClick();
+    cardDelete.close();
   }
 });
+cardDelete.setEventListeners();
 
 api.getAppInfo()
 .then(([userInfoData, initalCardsData]) => {
@@ -48,14 +52,15 @@ api.getAppInfo()
           userId,
           templateSelector,
           (id) => {
-            console.log("cardD", cardDelete.open);
-          cardDelete.open();
-          cardDelete.setSubmitAction(() => {
-            handleDeleteClick(id).then(() => {
-              card.removeCard();
+            cardDelete.open(id);
+            cardDelete.setSubmitAction(() => {
+              handleRemoveClick(id)
+              .then(() => {
+                card.deleteCard();
+              })
             })
-          })
-        },
+
+          },
           () => {
           popupWithImage.open(data);
         })
@@ -67,6 +72,7 @@ api.getAppInfo()
   );
   cardsList.renderItems();
 
+
   const addForm = new PopupWithForm({
     popupSelector: ".popup__add-card",
     handleSubmitForm: (data) => {
@@ -76,16 +82,6 @@ api.getAppInfo()
           const card = new Card(data,
             userId,
             templateSelector,
-            (id) => {
-              cardDelete.open();
-              cardDelete.setSubmitAction(() => {
-                console.log('id', id);
-                handleDeleteClick(id).then(() => {
-                  console.log(id);
-                  card.removeCard();
-                })
-              })
-            },
             () => {
           popupWithImage.open(data);
           });
@@ -98,17 +94,34 @@ api.getAppInfo()
   buttonAdd.addEventListener("click", () => {addForm.open()});
 })
 
-const profileInfo =  new UserInfo({
-  nameSelector: profileName,
-  descriptionSelector: profileAbout,
-});
+//console.log(avatarImageInput);
+//console.log("pI", profileImage);
+//console.log("pA", profileAvatar);
 
-//console.log(api.getUserInfo);
-api.getUserInfo()
-.then(res => {
-  //console.log("profile!!!!", res);
-  profileInfo.setUserInfo({ userName: res.name, userDescription: res.about })
+function handlePicChange() {
+  const avatarValue = avatarImageInput.value;
+  api.setUserAvatar({avatar: avatarValue})
+  .then(res => {
+  console.log("avatar!!!", res);
+    profileImage.src = res.avatar;
+  })
+
+}
+
+const editProfilePic = new PopupWithForm({
+  popupSelector: ".popup__add-image",
+  handleSubmitForm: (data) => {
+    console.log(data);
+    handlePicChange(data);
+    editProfilePic.close();
+  }
 })
+editProfilePic.setEventListeners();
+
+profileImage.addEventListener("click", () => {
+  editProfilePic.open();
+})
+
 
 // obj defaultConfig array, used in FormValidator.js
 const defultConfig = {
@@ -131,18 +144,36 @@ addCardValidation.enableValidation();
 const popupWithImage = new PopupWithImage(".popup__picture-section");
 popupWithImage.setEventListeners();
 
+const profileInfo =  new UserInfo({
+  nameSelector: profileName,
+  descriptionSelector: profileAbout,
+});
 
+
+api.getUserInfo()
+.then(res => {
+  //console.log("profile!!!!", res);
+  profileInfo.setUserInfo({ userName: res.name, userDescription: res.about })
+})
+
+function handleProfileEdit(data) {
+  console.log(data);
+  api.setUserInfo({
+    name: data.name,
+    about: data.about,
+  })
+  .then(res => {
+    //console.log(res);
+    profileInfo.setUserInfo({
+      userName: data.name,
+      userDescription: data.about
+    });
+  })
+}
 
 function submitForm(data) {
   handleProfileEdit(data);
   profileForm.open();
-}
-
-function handleProfileEdit(data) {
-  profileInfo.setUserInfo({
-    userName: data.name,
-    userDescription: data.about,
-  });
 }
 
 const profileForm = new PopupWithForm({

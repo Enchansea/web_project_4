@@ -4,6 +4,8 @@
 @import url('./__about/profile__about.css');
 @import url('./__edit-button/profile__edit-button.css');
 @import url('./__add-button/profile__add-button.css');
+@import url('./__avatar/profile__avatar.css');
+@import url('./__avatar-overlay/profile__avatar-overylay.css');
 
 .profile {
   display: grid;

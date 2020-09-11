@@ -43,8 +43,8 @@ class Api {
 
     //DELETE https://around.nomoreparties.co/v1/group-4/cards/cardId
     removeCard(cardId) {
-      console.log(cardId);
-      return fetch(this._baseUrl + '/cards' + cardId, {
+      //console.log("removeCard", cardId);
+      return fetch(`${this._baseUrl}/cards/${cardId}`, {
         headers:  this._headers,
         method: "DELETE"
      })
@@ -59,7 +59,7 @@ class Api {
 
     //PATCH https://around.nomoreparties.co/v1/group-4/users/me
     setUserInfo({name, about}) {
-      return fetch(this._baseUrl + '/cards', {
+      return fetch(`${this._baseUrl}/users/me`, {
         headers:  this._headers,
         method: "PATCH",
         body: JSON.stringify({
@@ -73,7 +73,20 @@ class Api {
     }
 
     //PATCH https://around.nomoreparties.co/v1/groupId/users/me/avatar
-    setUserAvatar({ avatar }) { }
+    setUserAvatar({ avatar }) {
+      console.log("work", `${this._baseUrl}/users/me/avatar`);
+      return fetch(`${this._baseUrl}/users/me/avatar`, {
+        headers:  this._headers,
+        method: "PATCH",
+        body: JSON.stringify({
+          avatar
+        })
+     })
+     .then(res => res.ok ? res.json() : Promise.reject('Error' + res.statusText))
+     //.then(res => console.log("post", res))
+     .catch(err => console.log(err))
+
+    }
 
 
 }

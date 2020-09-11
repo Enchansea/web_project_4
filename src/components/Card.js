@@ -35,19 +35,19 @@ class Card {
     }
     this._card.querySelector(".card__like-button")
       .addEventListener("click", this._handleLikeIcon);
-    this._card.querySelector(".card__remove-button")
-      .addEventListener("click", () => this._handleDeleteCard());
+    // this._card.querySelector(".card__remove-button")
+    //   .addEventListener("click", () => this._handleDeleteCard());
     this._card.querySelector(".card__image")
       .addEventListener("click", () => this._handleCardClick());
       this._card.querySelector(".card__remove-button")
-      .addEventListener("click", () => this._handleDeleteClick(this.id()));
+      .addEventListener("click", () => this._handleDeleteClick(this._id));
   }
 
   _handleLikeIcon(e) {
     e.target.classList.toggle("card__like-button_clicked");
   }
 
-  _handleDeleteCard() {
+  deleteCard() {
     this._card.remove();
     this._card = null;
   }
