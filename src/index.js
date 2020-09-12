@@ -1,4 +1,5 @@
 import {
+  defaultConfig,
   containerSelector,
   templateSelector,
   editProfileForm,
@@ -9,7 +10,6 @@ import {
   buttonAdd,
   profileImage,
   profileAvatar,
-  avatarImageInput
 } from "./components/Utils.js"
 import FormValidator from "./components/FormValidator.js";
 import Card from "./components/Card.js";
@@ -94,47 +94,45 @@ api.getAppInfo()
   buttonAdd.addEventListener("click", () => {addForm.open()});
 })
 
-//console.log(avatarImageInput);
+
 //console.log("pI", profileImage);
 //console.log("pA", profileAvatar);
 
-function handlePicChange() {
-  const avatarValue = avatarImageInput.value;
-  api.setUserAvatar({avatar: avatarValue})
+//send data to api to change profile pic
+function handlePicChange(data) {
+  console.log(data.Imagelink);
+  api.setUserAvatar({
+    avatar: data.Imagelink
+  })
   .then(res => {
-  console.log("avatar!!!", res);
-    profileImage.src = res.avatar;
+    console.log ("res", res)
+    console.log("this", res.avatar);
+    profileAvatar.src = res.avatar;
   })
 
 }
 
+//open profile image popup
 const editProfilePic = new PopupWithForm({
   popupSelector: ".popup__add-image",
   handleSubmitForm: (data) => {
-    console.log(data);
     handlePicChange(data);
     editProfilePic.close();
   }
 })
 editProfilePic.setEventListeners();
 
+//add click to profile image then open a new popup
 profileImage.addEventListener("click", () => {
   editProfilePic.open();
 })
 
 
-// obj defaultConfig array, used in FormValidator.js
-const defultConfig = {
-  inputSelector: ".popup__input",
-  submitButtonSelector: ".popup__button",
-  inactiveButtonClass: "popup__submit-button_disabled",
-  inputErrorClass: "popup__input_type_error",
-  errorClass: "popup__error_visible"
-}
+
 
 //new FormValidator for Profile and Add Card
-const editProfileValidation = new FormValidator(defultConfig, editProfileForm);
-const addCardValidation = new FormValidator(defultConfig, addCardForm);
+const editProfileValidation = new FormValidator(defaultConfig, editProfileForm);
+const addCardValidation = new FormValidator(defaultConfig, addCardForm);
 
 //calls function to validate profile and add card forms
 editProfileValidation.enableValidation();
@@ -144,6 +142,7 @@ addCardValidation.enableValidation();
 const popupWithImage = new PopupWithImage(".popup__picture-section");
 popupWithImage.setEventListeners();
 
+//selects DOM elements for name and about.
 const profileInfo =  new UserInfo({
   nameSelector: profileName,
   descriptionSelector: profileAbout,
@@ -152,17 +151,16 @@ const profileInfo =  new UserInfo({
 
 api.getUserInfo()
 .then(res => {
-  //console.log("profile!!!!", res);
   profileInfo.setUserInfo({ userName: res.name, userDescription: res.about })
 })
 
+//send profile name/about to api and then set it
 function handleProfileEdit(data) {
-  console.log(data);
   api.setUserInfo({
     name: data.name,
     about: data.about,
   })
-  .then(res => {
+  .then(() => {
     //console.log(res);
     profileInfo.setUserInfo({
       userName: data.name,
@@ -171,16 +169,18 @@ function handleProfileEdit(data) {
   })
 }
 
-function submitForm(data) {
-  handleProfileEdit(data);
-  profileForm.open();
-}
+//listens for profile edit button click and opens popup
+buttonEdit.addEventListener("click", () => {profileForm.open()});
 
+//creates new profile popup from the DOM
 const profileForm = new PopupWithForm({
   popupSelector: ".popup__edit-profile",
   handleSubmitForm: submitForm
 });
-
 profileForm.setEventListeners();
-buttonEdit.addEventListener("click", () => {profileForm.open()});
+
+function submitForm(data) {
+  handleProfileEdit(data);
+  profileForm.open();
+}
 

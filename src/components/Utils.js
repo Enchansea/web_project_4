@@ -40,7 +40,16 @@ const initialCards = [
   }
 ];
 
+// obj defaultConfig array, used in FormValidator.js
+const defaultConfig = {
+  inputSelector: ".popup__input",
+  submitButtonSelector: ".popup__button",
+  inactiveButtonClass: "popup__submit-button_disabled",
+  inputErrorClass: "popup__input_type_error",
+  errorClass: "popup__error_visible"
+}
+
 const containerSelector = ".card";
 const templateSelector = ".card-template";
 
-export {addCardForm, editProfileForm, profileName, profileAbout, buttonEdit, buttonAdd, initialCards, containerSelector, templateSelector, profileImage, profileAvatar, avatarImageInput, myId};
+export {defaultConfig, addCardForm, editProfileForm, profileName, profileAbout, buttonEdit, buttonAdd, initialCards, containerSelector, templateSelector, profileImage, profileAvatar, avatarImageInput, myId};

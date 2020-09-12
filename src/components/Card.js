@@ -10,6 +10,8 @@ class Card {
     this._userId = userId;
     this._owner = data.owner;
     this._id = data._id;
+    this._like = data.likes;
+    //console.log(this._like);
     this._handleCardClick = handleCardClick;
     this._handleDeleteClick = handleDeleteClick;
     this._cardTemplateSelector = cardTemplateSelector;
