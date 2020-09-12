@@ -10,6 +10,7 @@ import {
   buttonAdd,
   profileImage,
   profileAvatar,
+  submitButton
 } from "./components/Utils.js"
 import FormValidator from "./components/FormValidator.js";
 import Card from "./components/Card.js";
@@ -43,7 +44,6 @@ cardDelete.setEventListeners();
 
 api.getAppInfo()
 .then(([userInfoData, initalCardsData]) => {
-  //console.log("initial", initalCardsData);
   const userId = userInfoData._id;
   const cardsList = new Section(
     {items: initalCardsData,
@@ -85,6 +85,9 @@ api.getAppInfo()
             () => {
           popupWithImage.open(data);
           });
+
+          renderLoading(true);
+          console.log(submitButton);
           const cardElement = card.generateCard();
           cardsList.addItem(cardElement);
         });
@@ -95,21 +98,16 @@ api.getAppInfo()
 })
 
 
-//console.log("pI", profileImage);
-//console.log("pA", profileAvatar);
-
 //send data to api to change profile pic
 function handlePicChange(data) {
-  console.log(data.Imagelink);
+  renderLoading(false);
   api.setUserAvatar({
     avatar: data.Imagelink
   })
   .then(res => {
-    console.log ("res", res)
-    console.log("this", res.avatar);
     profileAvatar.src = res.avatar;
-  })
-
+  });
+  renderLoading(true);
 }
 
 //open profile image popup
@@ -151,21 +149,24 @@ const profileInfo =  new UserInfo({
 
 api.getUserInfo()
 .then(res => {
-  profileInfo.setUserInfo({ userName: res.name, userDescription: res.about })
+  profileInfo.setUserInfo({ userName: res.name, userDescription: res.about });
+  profileAvatar.src = res.avatar;
 })
 
 //send profile name/about to api and then set it
 function handleProfileEdit(data) {
+  //renderLoading(false);
   api.setUserInfo({
     name: data.name,
     about: data.about,
   })
+  renderLoading(false)
   .then(() => {
-    //console.log(res);
     profileInfo.setUserInfo({
       userName: data.name,
       userDescription: data.about
     });
+    renderLoading(true);
   })
 }
 
@@ -184,3 +185,10 @@ function submitForm(data) {
   profileForm.open();
 }
 
+const renderLoading = isLoading => {
+  if(isLoading) {
+    submitButton.textContent = 'Saving...';
+  } else {
+    submitButton.textContent = 'Save';
+  }
+}

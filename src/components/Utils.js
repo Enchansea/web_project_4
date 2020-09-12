@@ -9,6 +9,7 @@ const buttonAdd = document.querySelector(".profile__add-button");
 const profileImage = document.querySelector(".profile__avatar-overlay");
 const profileAvatar = document.querySelector(".profile__img");
 const avatarImageInput = document.querySelector(".popup__input_card-url");
+const submitButton = document.querySelector(".popup__submit-button");
 const myId = "9f87343e26d7981e15bb8b00";
 
 
@@ -52,4 +53,4 @@ const defaultConfig = {
 const containerSelector = ".card";
 const templateSelector = ".card-template";
 
-export {defaultConfig, addCardForm, editProfileForm, profileName, profileAbout, buttonEdit, buttonAdd, initialCards, containerSelector, templateSelector, profileImage, profileAvatar, avatarImageInput, myId};
+export {defaultConfig, addCardForm, editProfileForm, profileName, profileAbout, buttonEdit, buttonAdd, initialCards, containerSelector, templateSelector, profileImage, profileAvatar, avatarImageInput, submitButton, myId};

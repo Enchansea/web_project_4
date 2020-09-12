@@ -1,7 +1,3 @@
-import {
-  myId
-} from "./Utils.js";
-
 class Card {
   constructor(data, userId, cardTemplateSelector, handleDeleteClick, handleCardClick) {
     //console.log("data", data);
