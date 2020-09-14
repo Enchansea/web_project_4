@@ -135,7 +135,7 @@ api.getAppInfo()
 //send data to api to change profile pic
 function handlePicChange(data) {
   renderLoading(false);
-  api.getAppInfo({
+  api.setUserAvatar({
     avatar: data.Imagelink
   })
   .then(res => {
@@ -189,12 +189,11 @@ api.getUserInfo()
 
 //send profile name/about to api and then set it
 function handleProfileEdit(data) {
-  //renderLoading(false);
+  renderLoading(false);
   api.setUserInfo({
     name: data.name,
     about: data.about,
   })
-  renderLoading(false)
   .then(() => {
     profileInfo.setUserInfo({
       userName: data.name,
