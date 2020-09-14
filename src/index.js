@@ -63,7 +63,19 @@ api.getAppInfo()
           },
           () => {
           popupWithImage.open(data);
-        })
+        },
+        (id) => {
+          if(card.likeButton.classList.contains("card__like-button_clicked")) {
+            card.likeButton.classList.remove('card__like-button_clicked');
+            api.cardUnlike(id)
+            .then(res => card.likeCount(res.likes.length))
+          } else {
+            card.likeButton.classList.add("card__like-button_clicked");
+            api.cardLike(id)
+            .then(res => card.likeCount(res.likes.length))
+          }
+        }
+        )
         const cardElement = card.generateCard();
         cardsList.addItem(cardElement);
       },
@@ -82,9 +94,31 @@ api.getAppInfo()
           const card = new Card(data,
             userId,
             templateSelector,
+            (id) => {
+              cardDelete.open(id);
+              cardDelete.setSubmitAction(() => {
+                handleRemoveClick(id)
+                .then(() => {
+                  card.deleteCard();
+                })
+              })
+
+            },
             () => {
-          popupWithImage.open(data);
-          });
+            popupWithImage.open(data);
+            },
+            (id) => {
+              if(card.likeButton.classList.contains("card__liked")) {
+                card.likeButton.classList.remove('card__liked');
+                api.cardUnlike(id)
+                .then(res => card.likeCount(res.likes.length))
+              } else {
+                card.likeButton.classList.add("card__liked");
+                api.cardLike(id)
+                .then(res => card.likeCount(res.likes.length))
+              }
+            }
+          );
 
           renderLoading(true);
           console.log(submitButton);
@@ -101,7 +135,7 @@ api.getAppInfo()
 //send data to api to change profile pic
 function handlePicChange(data) {
   renderLoading(false);
-  api.setUserAvatar({
+  api.getAppInfo({
     avatar: data.Imagelink
   })
   .then(res => {

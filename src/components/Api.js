@@ -23,7 +23,7 @@ class Api {
     }
 
     getAppInfo() {
-      return Promise.all([this.getUserInfo(), this.getCardList()])
+      return Promise.all([this.getUserInfo(), this.getCardList(), this.setUserAvatar])
     }
 
     //POST https://around.nomoreparties.co/v1/group-4/cards
