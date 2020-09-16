@@ -32,10 +32,10 @@ class Card {
 
   _getCardTemplate() {
     const cardTemplate = document
-    .querySelector(this._cardTemplateSelector)
-    .content
-    .querySelector(".card__group")
-    .cloneNode(true);
+      .querySelector(this._cardTemplateSelector)
+      .content
+      .querySelector(".card__group")
+      .cloneNode(true);
     return cardTemplate;
   }
 
@@ -49,7 +49,7 @@ class Card {
 
     this._card.querySelector(".card__image")
       .addEventListener("click", () => this._handleCardClick());
-      this._card.querySelector(".card__remove-button")
+    this._card.querySelector(".card__remove-button")
       .addEventListener("click", () => this._handleDeleteClick(this._id));
   }
 
