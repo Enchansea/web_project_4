@@ -10,7 +10,6 @@ class Api {
            headers:  this._headers
         })
         .then(res => res.ok ? res.json() : Promise.reject('Error' + res.statusText))
-        .catch(err => console.log(err))
     }
 
     //GET https://around.nomoreparties.co/v1/group-4/users/me
@@ -19,7 +18,6 @@ class Api {
         headers:  this._headers
      })
      .then(res => res.ok ? res.json() : Promise.reject('Error' + res.statusText))
-     .catch(err => console.log(err))
     }
 
     getAppInfo() {
@@ -38,7 +36,6 @@ class Api {
      })
      .then(res => res.ok ? res.json() : Promise.reject('Error' + res.statusText))
      //.then(res => console.log("post", res))
-     .catch(err => console.log(err))
     }
 
     //DELETE https://around.nomoreparties.co/v1/group-4/cards/cardId
@@ -48,7 +45,6 @@ class Api {
         method: "DELETE"
      })
      .then(res => res.ok ? res.json() : Promise.reject('Error' + res.statusText))
-     .catch(err => console.log(err))
     }
 
     //PUT https://around.nomoreparties.co/v1/group-4/cards/likes/cardId
@@ -58,7 +54,6 @@ class Api {
         method: "PUT"
      })
      .then(res => res.ok ? res.json() : Promise.reject('Error' + res.statusText))
-     .catch(err => console.log(err))
     }
     //DELETE https://around.nomoreparties.co/v1/group-4/cards/likes/cardId
     cardUnlike(cardId) {
@@ -67,7 +62,6 @@ class Api {
         method: "DELETE"
      })
      .then(res => res.ok ? res.json() : Promise.reject('Error' + res.statusText))
-     .catch(err => console.log(err))
     }
 
 
@@ -83,7 +77,6 @@ class Api {
      })
      .then(res => res.ok ? res.json() : Promise.reject('Error' + res.statusText))
      //.then(res => console.log("post", res))
-     .catch(err => console.log(err))
     }
 
     //PATCH https://around.nomoreparties.co/v1/groupId/users/me/avatar
@@ -97,7 +90,6 @@ class Api {
         })
      })
      .then(res => res.ok ? res.json() : Promise.reject('Error' + res.statusText))
-     .catch(err => console.log(err))
 
     }
 

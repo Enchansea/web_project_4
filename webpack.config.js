@@ -3,10 +3,10 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = {
-  entry: { main: "./src/index.js" },
+  entry: { main: "./pages/index.js" },
   devtool: 'cheap-module-source-map',
   output: {
-    path: path.resolve(__dirname, "dist"),
+    path: path.resolve(__dirname, "docs"),
     filename: "main.js"
   },
   module: {
@@ -34,9 +34,13 @@ module.exports = {
         loader: "html-loader",
       },
       {
-        test: /\.(png|svg|jpg|gif|woff|woff2)$/,
-        loader: "file-loader",
+        test: /\.(png|svg|jpg|gif)$/,
+        loader: 'file-loader?name=./images/[name].[ext]',
       },
+      {
+        test: /\.(woff|woff2)$/,
+        loader: 'file-loader?name=./vendor/[name].[ext]',
+      }
     ]
   },
   plugins: [
