@@ -29,27 +29,19 @@ const api = new Api({
   }
 });
 
-function handleRemoveClick(cardId) {
-  return api.removeCard(cardId);
-}
-
-const cardDelete = new PopupWithForm({
-  popupSelector: ".popup__delete-confirm",
-  handleSubmitForm: (data) => {
-    handleRemoveClick(data)
-      .then(() => {
-        cardDelete.close(data);
-      })
-
-  }
+//opens popup form that asks to confirm card delete
+const popupDeleteCard = new PopupWithForm({
+  popupSelector: ".popup__delete-confirm"
 });
-cardDelete.setEventListeners();
+popupDeleteCard.setEventListeners();
 
-
+//Aygul Malikova I put all the catches in so that it would stop the code from running and keep the popup forms open per your request. However, I talked to my teacher and he said that this was not a requirement of Project 9. He showed me that all the catches need to be in Api.js per the course requirements if you look on the website. I just wanted you to be aware of this.
 
 api.getAppInfo()
   .then(([userInfoData, initalCardsData]) => {
     const userId = userInfoData._id;
+
+    //calls initial cards, renders section, and selects the container
     const cardsList = new Section(
       {
         items: initalCardsData,
@@ -59,31 +51,43 @@ api.getAppInfo()
     );
     cardsList.renderItems();
 
-    const addForm = new PopupWithForm({
+    //opens popup from to create a new card
+    const popupAddForm = new PopupWithForm({
       popupSelector: ".popup__add-card",
       handleSubmitForm: (data) => {
-
+        //adds card to api server.
         api.addCard(data)
           .then((data) => {
-            renderCards(data)
+            //renders card
+            renderCards(data);
+            //closes popup form
+            popupAddForm.close();
           })
-          .catch((err) => {console.log(err)})
+          .catch((err) => { console.log(err) })
       }
     });
-    addForm.setEventListeners();
-    buttonAdd.addEventListener("click", () => { addForm.open() });
+    popupAddForm.setEventListeners();
+    buttonAdd.addEventListener("click", () => { popupAddForm.open() });
 
+    //renders each card onto the site
     function renderCards(data) {
       const card = new Card(data,
         userId,
         templateSelector,
         (id) => {
-          cardDelete.open(id);
-          cardDelete.setSubmitAction(() => {
-            handleRemoveClick(id)
+          console.log("id", id);
+          //opens the popup needed to confirm deleting of cards
+          popupDeleteCard.open(id);
+          popupDeleteCard.setSubmitAction(() => {
+            //calls api to remove card from server
+            api.removeCard(id)
               .then(() => {
-                card.deleteCard();
+                //deletes card from site
+                card.deleteCard()
+                //closes the popup that confirms delete
+                popupDeleteCard.close()
               })
+              .catch((err) => { console.log(err) })
           })
         },
         () => {
@@ -94,12 +98,12 @@ api.getAppInfo()
             card.likeButton.classList.remove('card__like-button_clicked');
             api.cardUnlike(id)
               .then(res => card.likeCount(res.likes.length))
-              .catch((err) => {console.log(err)})
+              .catch((err) => { console.log(err) })
           } else {
             card.likeButton.classList.add("card__like-button_clicked");
             api.cardLike(id)
               .then(res => card.likeCount(res.likes.length))
-              .catch((err) => {console.log(err)})
+              .catch((err) => { console.log(err) })
           }
         }
       )
@@ -108,7 +112,7 @@ api.getAppInfo()
       cardsList.addItem(cardElement);
     }
   })
-  .catch((err) => {console.log(err)})
+  .catch((err) => { console.log(err) })
 
 
 //send data to api to change profile pic
@@ -117,11 +121,11 @@ function handlePicChange(data) {
   api.setUserAvatar({
     avatar: data.Imagelink
   })
-  .then(res => {
-    profileAvatar.src = res.avatar;
-     editProfilePic.close();
-  })
-  .catch((err) => {console.log(err)})
+    .then(res => {
+      profileAvatar.src = res.avatar;
+      editProfilePic.close();
+    })
+    .catch((err) => { console.log(err) })
   renderLoading(true);
 }
 
@@ -138,9 +142,6 @@ editProfilePic.setEventListeners();
 profileImage.addEventListener("click", () => {
   editProfilePic.open();
 })
-
-
-
 
 //new FormValidator for Profile and Add Card
 const editProfileValidation = new FormValidator(defaultConfig, editProfileForm);
@@ -162,28 +163,12 @@ const profileInfo = new UserInfo({
 
 
 api.getUserInfo()
-.then(res => {
+  .then(res => {
     profileInfo.setUserInfo({ userName: res.name, userDescription: res.about });
     profileAvatar.src = res.avatar;
-})
-.catch((err) => {console.log(err)})
-
-
-//send profile name/about to api and then set it
-function handleProfileEdit(data) {
-  renderLoading(true);
-  return api.setUserInfo({
-    name: data.name,
-    about: data.about,
   })
-  .then(() => {
-    profileInfo.setUserInfo({
-      userName: data.name,
-      userDescription: data.about
-    });
-    renderLoading(false);
-  })
-}
+  .catch((err) => { console.log(err) })
+
 
 //listens for profile edit button click and opens popup
 buttonEdit.addEventListener("click", () => { profileForm.open() });
@@ -196,10 +181,22 @@ const profileForm = new PopupWithForm({
 profileForm.setEventListeners();
 
 function submitForm(data) {
-  handleProfileEdit(data)
-  .then(() => {
-    profileForm.close(data)
+  renderLoading(true);
+  api.setUserInfo({
+    name: data.name,
+    about: data.about,
   })
+    .then(() => {
+      profileInfo.setUserInfo({
+        userName: data.name,
+        userDescription: data.about
+      });
+      renderLoading(false);
+    })
+    .then(() => {
+      profileForm.close()
+    })
+    .catch((err) => { console.log(err) })
 }
 
 const renderLoading = isLoading => {
