@@ -35,10 +35,10 @@ function handleRemoveClick(cardId) {
 
 const cardDelete = new PopupWithForm({
   popupSelector: ".popup__delete-confirm",
-  handleSubmitForm: () => {
-    handleRemoveClick()
+  handleSubmitForm: (data) => {
+    handleRemoveClick(data)
       .then(() => {
-        cardDelete.close();
+        cardDelete.close(data);
       })
 
   }
@@ -66,7 +66,8 @@ api.getAppInfo()
         api.addCard(data)
           .then((data) => {
             renderCards(data)
-          });
+          })
+          .catch((err) => {console.log(err)})
       }
     });
     addForm.setEventListeners();
@@ -93,10 +94,12 @@ api.getAppInfo()
             card.likeButton.classList.remove('card__like-button_clicked');
             api.cardUnlike(id)
               .then(res => card.likeCount(res.likes.length))
+              .catch((err) => {console.log(err)})
           } else {
             card.likeButton.classList.add("card__like-button_clicked");
             api.cardLike(id)
               .then(res => card.likeCount(res.likes.length))
+              .catch((err) => {console.log(err)})
           }
         }
       )
@@ -105,6 +108,7 @@ api.getAppInfo()
       cardsList.addItem(cardElement);
     }
   })
+  .catch((err) => {console.log(err)})
 
 
 //send data to api to change profile pic
@@ -113,10 +117,11 @@ function handlePicChange(data) {
   api.setUserAvatar({
     avatar: data.Imagelink
   })
-    .then(res => {
-      profileAvatar.src = res.avatar;
-      editProfilePic.close();
-    });
+  .then(res => {
+    profileAvatar.src = res.avatar;
+     editProfilePic.close();
+  })
+  .catch((err) => {console.log(err)})
   renderLoading(true);
 }
 
@@ -157,25 +162,27 @@ const profileInfo = new UserInfo({
 
 
 api.getUserInfo()
-  .then(res => {
+.then(res => {
     profileInfo.setUserInfo({ userName: res.name, userDescription: res.about });
     profileAvatar.src = res.avatar;
-  })
+})
+.catch((err) => {console.log(err)})
+
 
 //send profile name/about to api and then set it
 function handleProfileEdit(data) {
   renderLoading(true);
-  api.setUserInfo({
+  return api.setUserInfo({
     name: data.name,
     about: data.about,
   })
-    .then(() => {
-      profileInfo.setUserInfo({
-        userName: data.name,
-        userDescription: data.about
-      });
-      renderLoading(false);
-    })
+  .then(() => {
+    profileInfo.setUserInfo({
+      userName: data.name,
+      userDescription: data.about
+    });
+    renderLoading(false);
+  })
 }
 
 //listens for profile edit button click and opens popup
@@ -189,8 +196,10 @@ const profileForm = new PopupWithForm({
 profileForm.setEventListeners();
 
 function submitForm(data) {
-  handleProfileEdit(data);
-  profileForm.open();
+  handleProfileEdit(data)
+  .then(() => {
+    profileForm.close(data)
+  })
 }
 
 const renderLoading = isLoading => {
